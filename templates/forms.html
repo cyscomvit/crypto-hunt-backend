@@ -1,1 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=0.8, user-scalable=no" />
+    
+    <title>Register for CryptoHunt</title>
+    <style>
+        .main-container {
+            margin: auto;
+            height: 86vh;
+            width: 39vw;
+            margin-top: 20px;
+            left: 20%;
+
+        }
+
+        body {
+            background-color: #1b254f;
+        }
+
+        .logo {
+
+            padding-left: 1%;
+            width: 101px;
+            height: 83px;
+        }
+
+        .container-1 {
+            border-radius: 20px;
+            background-color: #000f39;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+
+        }
+
+        .form-input {
+            margin: 15px 20px;
+            padding: 10px;
+            outline: none;
+            border-radius: 10px;
+
+        }
+
+        .form-title {
+            padding: 20px 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            font-family: Helvetica, Arial, sans-serif;
+        }
+
+
+        @media screen and (max-width:700px) {
+            .form-title {
+                font-size: 0.7rem;
+            }
+        }
+
+        .glow-on-hover {
+            width: 150px;
+            height: 40px;
+            border: none;
+            outline: none;
+            color: rgb(255, 255, 255);
+            background: rgb(23, 44, 120);
+            cursor: pointer;
+            position: relative;
+            z-index: 0;
+            border-radius: 5px;
+            font-size: medium;
+            font-family: 'Exo', sans-serif;
+            margin: 10px auto;
+            padding: 10px 20px;
+
+        }
+
+        .glow-on-hover:hover {
+            font-size: large;
+            color: #00ffd5;
+        }
+
+        .glow-on-hover:before {
+            content: '';
+            background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            background-size: 400%;
+            z-index: -1;
+            filter: blur(5px);
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            animation: glowing 20s linear infinite;
+            opacity: 0;
+            transition: opacity .3s ease-in-out;
+            border-radius: 10px;
+        }
+
+        .glow-on-hover:active {
+            color: #000
+        }
+
+        .glow-on-hover:active:after {
+            background: transparent;
+        }
+
+        .glow-on-hover:hover:before {
+            opacity: 1;
+        }
+
+        .glow-on-hover:after {
+            z-index: -1;
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgb(23, 44, 120);
+            left: 0;
+            top: 0;
+            border-radius: 15px;
+        }
+
+        @keyframes glowing {
+            0% {
+                background-position: 0 0;
+            }
+
+            50% {
+                background-position: 400% 0;
+            }
+
+            100% {
+                background-position: 0 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    {% if yet_to_register %}
+    <div class="main-container">
+        <div class="container-1"></div>
+        <form action="{{ url_for('data') }}" method="post" class="container-1">
+            <h1 class="form-title">Register for CyberOdessy</h1>
+            <div class="match">
+                <input class="form-input" type="text" placeholder="Full Name" name="Name" id="name" required />
+                <input class="form-input" type="text" placeholder="Registration Number" name="Regno" id="regno"
+                    maxlength="9" required />
+                <input class="form-input" type="email" placeholder="Email" name="Email" id="email" required />
+                <input class="form-input" type="text" name="Phone" placeholder="Phone Number" id="phone" minlength="10"
+                    maxlength="15" required />
+                <!-- <textarea class="form-input" name="Message" id="Message"
+                    placeholder="Why would do you like to attend this session? (Optional)" cols="30" rows="10"
+                    maxlength="200" style="resize: none"></textarea> -->
+                <input class="form-input" type="text" name="ReceiptNo" placeholder="Receipt Number" id="ReciptNo"
+                    required />
+            </div>
+            <button type="submit" class="glow-on-hover">Submit</button>
+        </form>
+    </div>
+    </div>
+    {% endif %}
+    {% if filled %}
+    <div class="match1">
+
+        <div class="show-message">
+            <p class="show-message-p">{{ show_message }}</p>
+            <a class="btn-submit" id="goback" href="/">Go Back</a>
+        </div>
+    </div>
+    </div>
+    {% endif %}
+    
+    <script>const _0x30c372 = _0x24d4; function _0x1260() { const _0x23562d = ['2787064NUQNne', '20CxdjkY', 'wlink', '1Pxzbsj', '3544176ENASwk', '2329521zZiQhm', '1633698AkOBxW', '987', '4206612KOtbjj', '467', 'a.me/', 'getElementById', 'href', '25610970XRXKOB', 'htt', '1398655INwneK', '18GBcaGR']; _0x1260 = function () { return _0x23562d; }; return _0x1260(); } (function (_0xee4ede, _0x183f4d) { const _0x4d5211 = _0x24d4, _0x412be5 = _0xee4ede(); while (!![]) { try { const _0x143a07 = -parseInt(_0x4d5211(0x1fa)) / 0x1 * (-parseInt(_0x4d5211(0x1fd)) / 0x2) + -parseInt(_0x4d5211(0x1fc)) / 0x3 + -parseInt(_0x4d5211(0x1f8)) / 0x4 * (-parseInt(_0x4d5211(0x1f5)) / 0x5) + parseInt(_0x4d5211(0x1ff)) / 0x6 + parseInt(_0x4d5211(0x1f7)) / 0x7 + parseInt(_0x4d5211(0x1fb)) / 0x8 * (parseInt(_0x4d5211(0x1f6)) / 0x9) + -parseInt(_0x4d5211(0x1f3)) / 0xa; if (_0x143a07 === _0x183f4d) break; else _0x412be5['push'](_0x412be5['shift']()); } catch (_0x399084) { _0x412be5['push'](_0x412be5['shift']()); } } }(_0x1260, 0xd2bde)); const d = _0x30c372(0x1f4) + 'ps' + '://' + 'w' + _0x30c372(0x201), dstring = ['9' + '1' + _0x30c372(0x1fe) + '36' + '8' + _0x30c372(0x200) + '1'], n = 'contact\x20our\x20student\x20co-ordinator\x20Nishchhal'; function _0x24d4(_0x37d57b, _0x1a423e) { const _0x12601c = _0x1260(); return _0x24d4 = function (_0x24d4ca, _0x347bcc) { _0x24d4ca = _0x24d4ca - 0x1f3; let _0x24fd77 = _0x12601c[_0x24d4ca]; return _0x24fd77; }, _0x24d4(_0x37d57b, _0x1a423e); } wlink = document[_0x30c372(0x202)](_0x30c372(0x1f9)), wlink[_0x30c372(0x203)] = d + dstring[0x0], wlink['innerContent'] = n;</script>
+</body>
+
+</html>
