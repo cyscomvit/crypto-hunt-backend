@@ -1,0 +1,4 @@
+Flask
+gspread
+gunicorn
+python-dotenv
