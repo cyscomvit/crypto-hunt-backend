@@ -13,16 +13,16 @@ def add_values_to_gsheet(
     row: list,
     index: int = 2,
 ):
-    gc = gspread.service_account(filename="./credentials.json")
+    gc = gspread.service_account(filename="YOUR_FILE_NAME.JSON")
     spreadsheet = gc.open_by_key(spreadsheet_id)
     sheet_in_spreadsheet = spreadsheet.get_worksheet(0)
     sheet_in_spreadsheet.insert_row(values=row, index=index)
 
 
 def write_to_gsheet(data: dict):
-    row = [data["Name"], data["Regno"], data["Email"], data["Phone"], data["Message"]]
+    row = [data["Name"], data["Regno"], data["Email"], data["Phone"], data["ReceiptNo"]]
     add_values_to_gsheet(
-        spreadsheet_id="ID_HERE", row=row
+        spreadsheet_id="1qQrKjyvdyj6vcKQPnQsUKmxP2cWfkU7AwdITfB_f96E", row=row
     )
 
 
