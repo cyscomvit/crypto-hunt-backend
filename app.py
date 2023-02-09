@@ -3,9 +3,31 @@ import os
 
 import gspread
 from dotenv import load_dotenv
-from flask import Flask, render_template, request
+from flask import (
+    Flask,
+    render_template,
+    request,
+    Flask,
+    json,
+    make_response,
+    redirect,
+    render_template,
+    request,
+    session,
+    url_for,
+)
 
-app = Flask(__name__)
+from flask_session import Session
+
+
+# Initialize Flask app
+app = Flask("Cyber Odessey")
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+
+
+Session(app)
+
 
 # Google Sheets API
 def add_values_to_gsheet(
@@ -13,20 +35,17 @@ def add_values_to_gsheet(
     row: list,
     index: int = 2,
 ):
-    gc = gspread.service_account(filename="YOUR_FILE_NAME.JSON")
+    gc = gspread.service_account(filename="./credentials.json")
     spreadsheet = gc.open_by_key(spreadsheet_id)
     sheet_in_spreadsheet = spreadsheet.get_worksheet(0)
     sheet_in_spreadsheet.insert_row(values=row, index=index)
 
 
 def write_to_gsheet(data: dict):
-    row = [data["Name"], data["Regno"], data["Email"], data["Phone"], data["ReceiptNo"]]
-    add_values_to_gsheet(
-        spreadsheet_id="1qQrKjyvdyj6vcKQPnQsUKmxP2cWfkU7AwdITfB_f96E", row=row
-    )
+    row = [data["Name"], data["Regno"], data["Email"], data["Phone"], data["Message"]]
+    add_values_to_gsheet(spreadsheet_id="ID_HERE", row=row)
 
 
-# CSV
 def check_if_exists_in_directory(file_or_folder_name: str, directory: str = "") -> bool:
     current_working_dir = os.getcwd()
     try:
@@ -69,10 +88,10 @@ def check_user_exists_in_csv(data: dict):
 
 @app.route("/")
 def index_page():
-    return render_template('index.html')
+    return render_template("index.html")
 
 
-@app.route("/forms", methods=["POST", "GET"])
+@app.route("/register", methods=["POST", "GET"])
 def data():
     data = {}
     if request.method == "POST":
@@ -80,25 +99,29 @@ def data():
         data["Regno"] = request.form["Regno"].upper()
         data["Email"] = request.form["Email"]
         data["Phone"] = request.form["Phone"]
-        
         data["ReceiptNo"] = request.form["ReceiptNo"]
 
         if check_user_exists_in_csv(data):
             return render_template(
-                "forms.html", filled=True, show_message="You have already registered!"
+                "register.html",
+                filled=True,
+                show_message="You have already registered!",
             )
         else:
             write_to_csv(data)
             # write_to_gsheet(data)
             return render_template(
-                "forms.html",
+                "register.html",
                 show_message="You have successfully registered",
                 filled=True,
             )
 
-    return render_template(
-        "forms.html", yet_to_register=True, filled=False
-        )
+    return render_template("register.html", yet_to_register=True, filled=False)
+
+
+@app.route("/play", methods=["POST", "GET"])
+def play():
+    return render_template("play.html")
 
 
 if __name__ == "__main__":

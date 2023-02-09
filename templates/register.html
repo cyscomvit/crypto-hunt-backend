@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register</title>
+  <link rel="shortcut icon" href="https://pbs.twimg.com/profile_images/1543483472412811264/ViWhC4Yb_400x400.jpg"
+    type="image/x-icon" />
+  <link rel="stylesheet" href="./../static/css/formStyle.css">
+</head>
+
+<body>
+  <section>
+    <span></span>
+  </section>
+  <div class="container">
+    <div>
+      <img src="https://cyscomvit.com/assets/images/logo.png" class="logo" />
+    </div>
+    <div class="form">
+
+      <h1 class="form-title">CYBER ODYSSEY</h1>
+      <!-- <input class="form-input" type="text" placeholder="Full Name*" required />
+      <input class="form-input" type="text" placeholder="Registration number*" />
+      <input class="form-input" type="email" placeholder="Your Email*" required />
+      <input class="form-input" type="tel" placeholder="Enter your Phone Number*" required />
+      <input class="form-input" type="number" placeholder="Payment Receipt Number*" required></input>
+      <button type="submit" class="glow-on-hover">Submit</button> --> 
+
+      {% if yet_to_register %}
+    <!-- <div class="main-container"> -->
+        <!-- <div class="container-1"></div> -->
+        <form action="{{ url_for('data') }}" method="post" >
+            <!-- <h1 class="form-title">Register for CyberOdessy</h1> -->
+            <div class="match">
+                <input class="form-input" type="text" placeholder="Full Name" name="Name" id="name" required />
+                <input class="form-input" type="text" placeholder="Registration Number" name="Regno" id="regno"
+                    maxlength="9" required />
+                <input class="form-input" type="email" placeholder="Email" name="Email" id="email" required />
+                <input class="form-input" type="text" name="Phone" placeholder="Phone Number" id="phone" minlength="10"
+                    maxlength="15" required />
+                <!-- <textarea class="form-input" name="Message" id="Message"
+                    placeholder="Why would do you like to attend this session? (Optional)" cols="30" rows="10"
+                    maxlength="200" style="resize: none"></textarea> -->
+                <input class="form-input" type="text" name="ReceiptNo" placeholder="Receipt Number" id="ReciptNo"
+                    required />
+            </div>
+            <button type="submit" class="glow-on-hover">Submit</button>
+        </form>
+    <!-- </div> -->
+    <!-- </div> -->
+    {% endif %}
+    {% if filled %}
+    <div class="match1">
+
+        <div class="show-message">
+            <p class="show-message-p">{{ show_message }}</p>
+            <a class="btn-submit" id="goback" href="/">Go Back</a>
+        </div>
+    </div>
+    </div>
+    {% endif %}
+
+    </div>
+  </div>
+  <script></script>
+</body>
+
+</html>
