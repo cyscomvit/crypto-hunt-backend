@@ -87,6 +87,8 @@ def check_user_exists_in_csv(data: dict):
 
 
 @app.route("/")
+@app.route("/index.html")
+@app.route("/index")
 def index_page():
     return render_template("index.html")
 
@@ -102,23 +104,26 @@ def data():
         data["ReceiptNo"] = request.form["ReceiptNo"]
 
         if check_user_exists_in_csv(data):
-            return render_template(
-                "register.html",
-                filled=True,
-                show_message="You have already registered!",
-            )
+            f = True
+            message = "You have already registered!"
+        elif len(data) != 5:
+            f = True
+            message = "You must fill all 5 fields in the form!"
         else:
+            f = True
+            message = "You have successfully registered!"
             write_to_csv(data)
             # write_to_gsheet(data)
-            return render_template(
-                "register.html",
-                show_message="You have successfully registered",
-                filled=True,
-            )
+        return render_template(
+            "register.html",
+            show_message=message,
+            filled=f,
+        )
 
     return render_template("register.html", yet_to_register=True, filled=False)
 
 
+@app.route("")
 @app.route("/play", methods=["POST", "GET"])
 def play():
     return render_template("play.html")

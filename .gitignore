@@ -1,9 +1,11 @@
 testing.py
+credentials.json
 
 *.env
 *.log
-*.pyc
-credentials.json
+*.py[ci]
+*.csv
+*.json
 
 __pycache__/
 .mypy_cache/
