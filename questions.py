@@ -22,11 +22,15 @@ def get_specific_difficulty_questions(question_dict: dict, difficuty: str) -> li
     return to_return if to_return else []
 
 
-def get_current_question():
+def get_current_question(regno: str):
+
     ...
 
 
-def str_sequence_to_list_int(sequence: str) -> list[int]:
+def update_current_question(regno:str, current_question:int | str):
+    ...
+
+def str_sequence_to_int_list(sequence: str) -> list[int]:
     to_return = sequence.strip("[").strip("]").split(",")
     for i in range(len(to_return)):
         to_return[i] = int(to_return[i].strip().strip("'"))

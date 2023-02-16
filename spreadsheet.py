@@ -1,7 +1,10 @@
 import gspread
 from os import getenv
+from os.path import dirname
 
-gc = gspread.service_account(filename="./credentials-spreadsheet.json")
+gc = gspread.service_account(
+    filename=dirname(__file__) + "./credentials-spreadsheet.json"
+)
 
 
 # Google Sheets API
@@ -19,4 +22,4 @@ def add_values_to_gsheet(
 
 
 def write_to_gsheet(row, spreadsheet_id=getenv("SPREADSHEET_ID")):
-    add_values_to_gsheet(row=row,spreadsheet_id=spreadsheet_id)
+    add_values_to_gsheet(row=row, spreadsheet_id=spreadsheet_id)

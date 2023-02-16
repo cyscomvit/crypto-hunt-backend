@@ -27,43 +27,46 @@
       <input class="form-input" type="email" placeholder="Your Email*" required />
       <input class="form-input" type="tel" placeholder="Enter your Phone Number*" required />
       <input class="form-input" type="number" placeholder="Payment Receipt Number*" required></input>
-      <button type="submit" class="glow-on-hover">Submit</button> --> 
+      <button type="submit" class="glow-on-hover">Submit</button> -->
 
       {% if yet_to_register %}
-    <!-- <div class="main-container"> -->
-        <!-- <div class="container-1"></div> -->
-        <form action="{{ url_for('data') }}" method="post" >
-            <!-- <h1 class="form-title">Register for CyberOdessy</h1> -->
-            <div class="match">
-                <input class="form-input" type="text" placeholder="Full Name" name="Name" id="name" required />
-                <input class="form-input" type="text" placeholder="Registration Number" name="Regno" id="regno"
-                    maxlength="9" required />
-                <input class="form-input" type="email" placeholder="Email" name="Email" id="email" required />
-                <input class="form-input" type="text" name="Phone" placeholder="Phone Number" id="phone" minlength="10"
-                    maxlength="15" required />
-                <!-- <textarea class="form-input" name="Message" id="Message"
+      <!-- <div class="main-container"> -->
+      <!-- <div class="container-1"></div> -->
+      <form action="{{ url_for('register') }}" method="post">
+        <!-- <h1 class="form-title">Register for CyberOdessy</h1> -->
+        <div class="match">
+          <input class="form-input" type="text" placeholder="Full Name" name="name" id="name" required />
+          <input class="form-input" type="text" placeholder="Registration Number" name="regno" id="regno" maxlength="9"
+            required />
+          <input class="form-input" type="email" placeholder="Email" name="email" id="email" required />
+          <input class="form-input" type="text" placeholder="Phone Number" name="phone" id="phone" minlength="10"
+            maxlength="15" required />
+          <div>
+            <label for="password">Please do not forget your password. Note it down!</label>
+            <input class="form-input" type="password" placeholder="Password" id="password" name="password">
+          </div>
+          <!-- <textarea class="form-input" name="Message" id="Message"
                     placeholder="Why would do you like to attend this session? (Optional)" cols="30" rows="10"
                     maxlength="200" style="resize: none"></textarea> -->
-                <input class="form-input" type="text" name="ReceiptNo" placeholder="Receipt Number" id="ReciptNo"
-                    required />
-            </div>
-            <button type="submit" class="glow-on-hover">Submit</button>
-        </form>
-    <!-- </div> -->
-    <!-- </div> -->
-    {% endif %}
-    {% if filled %}
-    <div class="match1">
+          <input class="form-input" type="text" placeholder="Receipt Number" name="receiptno" id="receiptno" required />
+        </div>
+        <button type="submit" class="glow-on-hover">Submit</button>
+      </form>
+      <!-- </div> -->
+      <!-- </div> -->
+      {% endif %}
+      {% if filled %}
+      <div class="match1">
 
         <div class="show-message">
-            <p class="show-message-p">{{ show_message }}</p>
-            <a class="btn-submit" id="goback" href="/">Go Back</a>
+          <p class="show-message-p">{{ show_message }}</p>
+          <a class="btn-submit" id="goback" href="/">Go Back</a>
         </div>
-    </div>
+      </div>
     </div>
     {% endif %}
 
-    </div>
+  </div>
   </div>
   <script></script>
 </body>

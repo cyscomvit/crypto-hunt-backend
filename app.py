@@ -7,7 +7,7 @@ from flask import Flask, render_template, request, session
 from flask_session import Session
 from questions import (
     generate_sequence_for_a_team,
-    str_sequence_to_list_int,
+    str_sequence_to_int_list,
     get_answer_for_a_question,
     get_current_question,
     get_question_for_a_question_number,
@@ -22,7 +22,7 @@ app.config["SESSION_TYPE"] = "filesystem"
 
 Session(app)
 
-header = [
+header: list = [
     "name",
     "regno",
     "email",
@@ -50,7 +50,6 @@ def check_if_exists_in_directory(file_or_folder_name: str, directory: str = "") 
 def write_to_csv(data: dict, row, filename: str = "CyberRegistrations.csv"):
     global header
     file_exists = check_if_exists_in_directory(filename)
-
     with open(filename, "a") as csv_file_obj:
         csv_write = csv.writer(csv_file_obj, delimiter=",", lineterminator="\n")
         if file_exists:
@@ -104,9 +103,9 @@ def get_team_details(regno: str) -> list:
             return []
 
 
-@app.route("/")
-@app.route("/index.html")
-@app.route("/index")
+@app.route("/", methods=["GET"])
+@app.route("/index.html", methods=["GET"])
+@app.route("/index", methods=["GET"])
 def index_page():
     return render_template("index.html")
 
@@ -124,7 +123,7 @@ def register(data: dict = {}):
 
         data["uniqid"] = generate_uuid()
         data["sequence"] = generate_sequence_for_a_team()
-        data["current_question"] = "1"
+        data["current_question"] = 1
 
         if check_user_exists_in_csv(data["regno"], data["uniqid"]):
             f = True
@@ -152,7 +151,7 @@ def register(data: dict = {}):
             session["name"] = data["name"]
             session["regno"] = data["regno"]
             session["uniqid"] = data["uniqid"]
-            session["current_question"] = "1"
+            session["current_question"] = data["current_question"]
             return render_template(
                 "register.html",
                 show_message=message,
@@ -162,6 +161,7 @@ def register(data: dict = {}):
 
 
 @app.route("/login", methods=["POST", "GET"])
+@app.route("/login.html", methods=["POST", "GET"])
 def login():
     if request.method == "POST":
         regno = request.form["regno"]
@@ -171,9 +171,10 @@ def login():
             if password_correct:
                 row = get_team_details(regno)
                 if row:
-                    session["regno"] = row[1]
-                    session["name"] = row[0]
-                    session["current_question"] = get_current_question()
+                    session["regno"] = row[header.index("regno")]
+                    session["name"] = row[header.index("name")]
+                    session["uniqid"] = row[header.index("uniqid")]
+                    session["current_question"] = get_current_question(session["regno"])
                     return render_template(
                         "play.html",
                         question_text=get_question_for_a_question_number(
@@ -198,12 +199,21 @@ def check_answer(user_id: str, question_no: int, answer: str):
 @app.route("/submit", methods=["POST"])
 def submit(user_id: str, question_no: int, answer: str):
     ...
+    return None
+    if request.method == "POST":
+        if not data:
+            data["name"] = request.form["name"]
+            data["regno"] = request.form["regno"].upper()
+            data["email"] = request.form["email"]
+            data["password"] = hasher(request.form["password"])
+            data["phone"] = request.form["phone"]
+            data["receiptno"] = request.form["receiptno"]
 
 
 @app.route("/play", methods=["GET", "POST"])
 def play():
     if not session.get("name") and session.get("current_question"):
-        return render_template("login.html")
+        return render_template("login.html", error="Please login first")
     if request.method == "POST":
         ...
     else:
@@ -221,6 +231,6 @@ def play():
 
 load_dotenv("crypto.env")
 
-if __name__ == "a":
+if __name__ == "__main__":
     port = int(os.getenv("PORT")) if os.getenv("PORT") else 8080
     app.run(debug=bool(os.getenv("DEBUG")), host="0.0.0.0", port=port)
