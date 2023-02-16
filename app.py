@@ -1,6 +1,5 @@
 import csv
 import os
-from hashlib import sha256
 
 from dotenv import load_dotenv
 from firebase_functions import initialize_firebase_for_a_user
@@ -11,8 +10,10 @@ from questions import (
     str_sequence_to_list_int,
     get_answer_for_a_question,
     get_current_question,
+    get_question_for_a_question_number,
 )
 from spreadsheet import write_to_gsheet
+from miscellaneous import *
 
 # Initialize Flask app
 app = Flask("Cyber Odessey " + __name__)
@@ -20,19 +21,6 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 
 Session(app)
-
-
-def generate_uuid() -> str:
-    from uuid import uuid4
-
-    return str(uuid4())
-
-
-def hasher(text: str) -> str:
-    """
-    Takes a UTF-8 encoded piece of text of any length, and returns the SHA-256 hash of the text as a string object, in uppercase.
-    """
-    return sha256(bytes(text, "utf-8")).hexdigest().upper()
 
 
 def check_if_exists_in_directory(file_or_folder_name: str, directory: str = "") -> bool:
@@ -96,10 +84,10 @@ def check_password(username: str, password: str) -> tuple[bool, bool]:
                 if row["regno"] == username:
                     user_exists = True
                     if row["password"] == password:
-                        return (user_exists,True)
+                        return (user_exists, True)
                     else:
-                        return (user_exists,False)
-            return (user_exists,False)
+                        return (user_exists, False)
+            return (user_exists, False)
 
 
 def get_team_details(regno: str) -> list:
@@ -176,27 +164,32 @@ def login():
     if request.method == "POST":
         username = request.form["regno"]
         password = hasher(request.form["password"])
-        if check_password(username, password):
-            row = get_team_details()
-            if row:
-                session["regno"] = row[1]
-                session["name"] = row[0]
-                session["current_question"] = get_current_question()
-                return render_template(
-                    "play.html",
-                    question_text=get_question_for_a_question(
-                        session["current_question"]
-                    ),
-                    name=session["name"],
-                )
-            else:
+        _ = check_password(username, password)
+        if _[0]:
+            if _[1]:
+                row = get_team_details()
+                if row:
+                    session["regno"] = row[1]
+                    session["name"] = row[0]
+                    session["current_question"] = get_current_question()
+                    return render_template(
+                        "play.html",
+                        question_text=get_question_for_a_question_number(
+                            session["current_question"]
+                        ),
+                        name=session["name"],
+                    )
+                else:
+                    return render_template(
+                        "login.html",
+                        error='User does not exist, please </a href="./register">register</a>!',
+                    )
+    else:
+        return render_template("login.html", error="Wrong password. Try again")
+    return render_template("login.html", error=None)
 
-        else:
-            return render_template("login.html", error="Wrong password. Try again")
-    return render_template("login.html", error="")
 
-
-def answer(user_id: str, question_no: int, answer: str):
+def check_answer(user_id: str, question_no: int, answer: str):
     ...
 
 
@@ -212,10 +205,14 @@ def play():
     if request.method == "POST":
         ...
     else:
-        session["hash"] = sha256(get_answer_for_a_question(session["current_question"]))
+        session["answer_hash"] = hasher(
+            get_answer_for_a_question(session["current_question"])
+        )
         return render_template(
             "play.html",
-            question_text=get_question_for_a_question(session["current_question"]),
+            question_text=get_question_for_a_question_number(
+                session["current_question"]
+            ),
             name=session["name"],
         )
 

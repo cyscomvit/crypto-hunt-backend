@@ -51,3 +51,7 @@ def generate_sequence_for_a_team() -> list[str]:
         randshuffle(hard_questions)
         sequence += hard_questions
     return sequence
+
+
+def get_question_for_a_question_number(question_number: int | str = 1):
+    return get_questions[int(question_number) - 1]
