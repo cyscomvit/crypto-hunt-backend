@@ -85,7 +85,7 @@ def check_user_exists_in_csv(data: dict, filename: str = "CyberRegistrations.csv
             return False
 
 
-def check_password(username: str, password: str) -> (bool, bool):
+def check_password(username: str, password: str) -> tuple[bool, bool]:
     if not check_if_exists_in_directory("CyberRegistrations.csv"):
         return False
     else:
