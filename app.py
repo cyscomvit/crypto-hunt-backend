@@ -22,6 +22,18 @@ app.config["SESSION_TYPE"] = "filesystem"
 
 Session(app)
 
+header = [
+    "name",
+    "regno",
+    "email",
+    "password",
+    "phone",
+    "receiptno",
+    "uniqid",
+    "sequence",
+    "current_question",
+]
+
 
 def check_if_exists_in_directory(file_or_folder_name: str, directory: str = "") -> bool:
     current_working_dir = os.getcwd()
@@ -36,18 +48,7 @@ def check_if_exists_in_directory(file_or_folder_name: str, directory: str = "") 
 
 
 def write_to_csv(data: dict, row, filename: str = "CyberRegistrations.csv"):
-    header = [
-        "name",
-        "regno",
-        "email",
-        "password",
-        "phone",
-        "receiptno",
-        "uniqid",
-        "sequence",
-        "current_question",
-    ]
-
+    global header
     file_exists = check_if_exists_in_directory(filename)
 
     with open(filename, "a") as csv_file_obj:
@@ -59,35 +60,36 @@ def write_to_csv(data: dict, row, filename: str = "CyberRegistrations.csv"):
             csv_write.writerow(row)
 
 
-def check_user_exists_in_csv(data: dict, filename: str = "CyberRegistrations.csv"):
+def check_user_exists_in_csv(
+    regno: str, uniqid: str, filename: str = "CyberRegistrations.csv"
+):
     if not check_if_exists_in_directory(filename):
         return False
     else:
         with open(filename, "r") as csv_file_obj:
             csv_reader = csv.DictReader(csv_file_obj)
             for row in csv_reader:
-                if data["regno"] == row["regno"]:
+                if regno == row["regno"]:
                     return True
-                elif data["uniqid"] == row["uniqid"]:
+                elif uniqid == row["uniqid"]:
                     return True
             return False
 
 
-def check_password(username: str, password: str) -> tuple[bool, bool]:
-    if not check_if_exists_in_directory("CyberRegistrations.csv"):
-        return False
-    else:
-        user_exists = False
-        with open("CyberRegistrations.csv", "r") as csv_file_obj:
-            csv_reader = csv.DictReader(csv_file_obj)
-            for row in csv_reader:
-                if row["regno"] == username:
-                    user_exists = True
-                    if row["password"] == password:
-                        return (user_exists, True)
-                    else:
+def check_password(reg_no: str, password: str) -> tuple[bool, bool]:
+    # Returns tuple of whether user_exists, and if exists, if password is correctt
+    user_exists = False
+    if check_if_exists_in_directory("CyberRegistrations.csv"):
+        if check_user_exists_in_csv(reg_no, ""):
+            with open("CyberRegistrations.csv", "r") as csv_file_obj:
+                csv_reader = csv.DictReader(csv_file_obj)
+                for row in csv_reader:
+                    if row["regno"] == reg_no:
+                        user_exists = True
+                        if row["password"] == password:
+                            return (user_exists, True)
                         return (user_exists, False)
-            return (user_exists, False)
+    return (user_exists, False)
 
 
 def get_team_details(regno: str) -> list:
@@ -124,7 +126,7 @@ def register(data: dict = {}):
         data["sequence"] = generate_sequence_for_a_team()
         data["current_question"] = "1"
 
-        if check_user_exists_in_csv(data):
+        if check_user_exists_in_csv(data["regno"], data["uniqid"]):
             f = True
             message = "You have already registered!"
         else:
@@ -162,12 +164,12 @@ def register(data: dict = {}):
 @app.route("/login", methods=["POST", "GET"])
 def login():
     if request.method == "POST":
-        username = request.form["regno"]
+        regno = request.form["regno"]
         password = hasher(request.form["password"])
-        _ = check_password(username, password)
-        if _[0]:
-            if _[1]:
-                row = get_team_details()
+        user_exists, password_correct = check_password(regno, password)
+        if user_exists:
+            if password_correct:
+                row = get_team_details(regno)
                 if row:
                     session["regno"] = row[1]
                     session["name"] = row[0]
