@@ -8,6 +8,7 @@ flask = "*"
 gspread = "*"
 gunicorn = "*"
 python-dotenv = "*"
+firebase-admin = "*"
 
 [dev-packages]
 

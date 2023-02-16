@@ -1,49 +1,38 @@
 import csv
 import os
+from hashlib import sha256
 
-import gspread
 from dotenv import load_dotenv
-from flask import (
-    Flask,
-    render_template,
-    request,
-    Flask,
-    json,
-    make_response,
-    redirect,
-    render_template,
-    request,
-    session,
-    url_for,
-)
-
+from firebase_functions import initialize_firebase_for_a_user
+from flask import Flask, render_template, request, session
 from flask_session import Session
-
+from questions import (
+    generate_sequence_for_a_team,
+    str_sequence_to_list_int,
+    get_answer_for_a_question,
+    get_current_question,
+)
+from spreadsheet import write_to_gsheet
 
 # Initialize Flask app
-app = Flask("Cyber Odessey")
+app = Flask("Cyber Odessey " + __name__)
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
-
 
 Session(app)
 
 
-# Google Sheets API
-def add_values_to_gsheet(
-    spreadsheet_id: str,
-    row: list,
-    index: int = 2,
-):
-    gc = gspread.service_account(filename="./credentials.json")
-    spreadsheet = gc.open_by_key(spreadsheet_id)
-    sheet_in_spreadsheet = spreadsheet.get_worksheet(0)
-    sheet_in_spreadsheet.insert_row(values=row, index=index)
+def generate_uuid() -> str:
+    from uuid import uuid4
+
+    return str(uuid4())
 
 
-def write_to_gsheet(data: dict):
-    row = [data["Name"], data["Regno"], data["Email"], data["Phone"], data["Message"]]
-    add_values_to_gsheet(spreadsheet_id="ID_HERE", row=row)
+def hasher(text: str) -> str:
+    """
+    Takes a UTF-8 encoded piece of text of any length, and returns the SHA-256 hash of the text as a string object, in uppercase.
+    """
+    return sha256(bytes(text, "utf-8")).hexdigest().upper()
 
 
 def check_if_exists_in_directory(file_or_folder_name: str, directory: str = "") -> bool:
@@ -58,14 +47,22 @@ def check_if_exists_in_directory(file_or_folder_name: str, directory: str = "") 
         os.chdir(current_working_dir)
 
 
-def write_to_csv(data: dict):
-    header = ["Name", "Regno", "Email", "Phone", "ReceiptNo"]
+def write_to_csv(data: dict, row, filename: str = "CyberRegistrations.csv"):
+    header = [
+        "name",
+        "regno",
+        "email",
+        "password",
+        "phone",
+        "receiptno",
+        "uniqid",
+        "sequence",
+        "current_question",
+    ]
 
-    row = [data["Name"], data["Regno"], data["Email"], data["Phone"], data["ReceiptNo"]]
+    file_exists = check_if_exists_in_directory(filename)
 
-    file_exists = check_if_exists_in_directory("CyberRegistrations.csv")
-
-    with open("CyberRegistrations.csv", "a") as csv_file_obj:
+    with open(filename, "a") as csv_file_obj:
         csv_write = csv.writer(csv_file_obj, delimiter=",", lineterminator="\n")
         if file_exists:
             csv_write.writerow(row)
@@ -74,16 +71,47 @@ def write_to_csv(data: dict):
             csv_write.writerow(row)
 
 
-def check_user_exists_in_csv(data: dict):
+def check_user_exists_in_csv(data: dict, filename: str = "CyberRegistrations.csv"):
+    if not check_if_exists_in_directory(filename):
+        return False
+    else:
+        with open(filename, "r") as csv_file_obj:
+            csv_reader = csv.DictReader(csv_file_obj)
+            for row in csv_reader:
+                if data["regno"] == row["regno"]:
+                    return True
+                elif data["uniqid"] == row["uniqid"]:
+                    return True
+            return False
+
+
+def check_password(username: str, password: str) -> (bool, bool):
+    if not check_if_exists_in_directory("CyberRegistrations.csv"):
+        return False
+    else:
+        user_exists = False
+        with open("CyberRegistrations.csv", "r") as csv_file_obj:
+            csv_reader = csv.DictReader(csv_file_obj)
+            for row in csv_reader:
+                if row["regno"] == username:
+                    user_exists = True
+                    if row["password"] == password:
+                        return (user_exists,True)
+                    else:
+                        return (user_exists,False)
+            return (user_exists,False)
+
+
+def get_team_details(regno: str) -> list:
     if not check_if_exists_in_directory("CyberRegistrations.csv"):
         return False
     else:
         with open("CyberRegistrations.csv", "r") as csv_file_obj:
             csv_reader = csv.DictReader(csv_file_obj)
             for row in csv_reader:
-                if data["Regno"] == row["Regno"]:
-                    return True
-            return False
+                if row["regno"] == regno:
+                    return row
+            return []
 
 
 @app.route("/")
@@ -94,41 +122,106 @@ def index_page():
 
 
 @app.route("/register", methods=["POST", "GET"])
-def data():
-    data = {}
+def register(data: dict = {}):
     if request.method == "POST":
-        data["Name"] = request.form["Name"]
-        data["Regno"] = request.form["Regno"].upper()
-        data["Email"] = request.form["Email"]
-        data["Phone"] = request.form["Phone"]
-        data["ReceiptNo"] = request.form["ReceiptNo"]
+        if not data:
+            data["name"] = request.form["name"]
+            data["regno"] = request.form["regno"].upper()
+            data["email"] = request.form["email"]
+            data["password"] = hasher(request.form["password"])
+            data["phone"] = request.form["phone"]
+            data["receiptno"] = request.form["receiptno"]
+
+        data["uniqid"] = generate_uuid()
+        data["sequence"] = generate_sequence_for_a_team()
+        data["current_question"] = "1"
 
         if check_user_exists_in_csv(data):
             f = True
             message = "You have already registered!"
-        elif len(data) != 5:
-            f = True
-            message = "You must fill all 5 fields in the form!"
         else:
             f = True
-            message = "You have successfully registered!"
-            write_to_csv(data)
-            # write_to_gsheet(data)
-        return render_template(
-            "register.html",
-            show_message=message,
-            filled=f,
-        )
-
+            message = "You have successfully registered"
+            row = [
+                data["name"],
+                data["regno"],
+                data["email"],
+                data["password"],
+                data["phone"],
+                data["receiptno"],
+                data["uniqid"],
+                str(data["sequence"]),
+                data["current_question"],
+            ]
+            write_to_csv(data, filename="CyberRegistrations.csv", row=row)
+            write_to_gsheet(
+                row=row, spreadsheet_id=os.getenv("REGISTRATIONS_SPREADSHEET")
+            )
+            initialize_firebase_for_a_user(data)
+            print(f"Added {row}")
+            session["name"] = data["name"]
+            session["regno"] = data["regno"]
+            session["uniqid"] = data["uniqid"]
+            session["current_question"] = "1"
+            return render_template(
+                "register.html",
+                show_message=message,
+                filled=f,
+            )
     return render_template("register.html", yet_to_register=True, filled=False)
 
 
-@app.route("")
-@app.route("/play", methods=["POST", "GET"])
+@app.route("/login", methods=["POST", "GET"])
+def login():
+    if request.method == "POST":
+        username = request.form["regno"]
+        password = hasher(request.form["password"])
+        if check_password(username, password):
+            row = get_team_details()
+            if row:
+                session["regno"] = row[1]
+                session["name"] = row[0]
+                session["current_question"] = get_current_question()
+                return render_template(
+                    "play.html",
+                    question_text=get_question_for_a_question(
+                        session["current_question"]
+                    ),
+                    name=session["name"],
+                )
+            else:
+
+        else:
+            return render_template("login.html", error="Wrong password. Try again")
+    return render_template("login.html", error="")
+
+
+def answer(user_id: str, question_no: int, answer: str):
+    ...
+
+
+@app.route("/submit", methods=["POST"])
+def submit(user_id: str, question_no: int, answer: str):
+    ...
+
+
+@app.route("/play", methods=["GET", "POST"])
 def play():
-    return render_template("play.html")
+    if not session.get("name") and session.get("current_question"):
+        return render_template("login.html")
+    if request.method == "POST":
+        ...
+    else:
+        session["hash"] = sha256(get_answer_for_a_question(session["current_question"]))
+        return render_template(
+            "play.html",
+            question_text=get_question_for_a_question(session["current_question"]),
+            name=session["name"],
+        )
 
 
-if __name__ == "__main__":
-    load_dotenv(".env")
-    app.run(debug=bool(os.getenv("DEBUG")), host="0.0.0.0", port=80)
+load_dotenv("crypto.env")
+
+if __name__ == "a":
+    port = int(os.getenv("PORT")) if os.getenv("PORT") else 8080
+    app.run(debug=bool(os.getenv("DEBUG")), host="0.0.0.0", port=port)
