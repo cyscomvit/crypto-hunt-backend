@@ -40,6 +40,7 @@ def initialize_firebase_for_a_user(data: dict):
             "password": data["password"],
             "phone": data["phone"],
             "receiptno": data["receiptno"],
+            "unidid": data["uniqid"],
             "sequence": str(data["sequence"]),
             "current_question": int(data["current_question"]),
         }
@@ -47,15 +48,19 @@ def initialize_firebase_for_a_user(data: dict):
 
 
 def get_current_question_from_firebase(regno: str) -> int:
-    for item in users_ref.get():
-        if item["regno"].casefold() == regno:
+    all_users_data = users_ref.get()
+    for item in all_users_data:
+        if all_users_data[item]["regno"].casefold() == regno.casefold():
+            print("here")
             selector = users_ref.child(item).get()
-            return selector["current_question"]
+            return int(selector["current_question"])
 
 
 def update_current_question_to_firebase(regno: str, question_number: int) -> None:
-    for item in users_ref.get():
-        if item["regno"].casefold() == regno:
-            selector = users_ref.child(item).get()
-            current_question_update = users_ref.child(item).child("current_question")
-            current_question_update.update(question_number)
+    all_users_data = users_ref.get()
+    for item in all_users_data:
+        if all_users_data[item]["regno"].casefold() == regno.casefold():
+            data = users_ref.child(item).get()
+            data["current_question"] = int(question_number)
+            selector_update = users_ref.child(item)
+            selector_update.update(data)

@@ -23,12 +23,19 @@ def get_specific_difficulty_questions(question_dict: dict, difficuty: str) -> li
 
 
 def get_current_question(regno: str):
+    from firebase_functions import get_current_question_from_firebase
+    from csv_functions import get_team_details, header
 
+    firebase_question = get_current_question_from_firebase(regno=regno)
+    csv_question = int(get_team_details[header.index("current_question")])
+
+    return min(firebase_question, csv_question)
     ...
 
 
-def update_current_question(regno:str, current_question:int | str):
+def update_current_question(regno: str, current_question: int | str):
     ...
+
 
 def str_sequence_to_int_list(sequence: str) -> list[int]:
     to_return = sequence.strip("[").strip("]").split(",")

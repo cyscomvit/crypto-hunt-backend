@@ -1,0 +1,82 @@
+import csv
+import os
+
+header: list = [
+    "name",
+    "regno",
+    "email",
+    "password",
+    "phone",
+    "receiptno",
+    "uniqid",
+    "sequence",
+    "current_question",
+]
+
+
+def check_if_exists_in_directory(file_or_folder_name: str, directory: str = "") -> bool:
+    current_working_dir = os.getcwd()
+    try:
+        if directory:
+            os.chdir(directory)
+        return file_or_folder_name in os.listdir()
+    except FileNotFoundError:
+        return False
+    finally:
+        os.chdir(current_working_dir)
+
+
+def write_to_csv(data: dict, row, filename: str = "CyberRegistrations.csv"):
+    global header
+    file_exists = check_if_exists_in_directory(filename)
+    with open(filename, "a") as csv_file_obj:
+        csv_write = csv.writer(csv_file_obj, delimiter=",", lineterminator="\n")
+        if file_exists:
+            csv_write.writerow(row)
+        else:
+            csv_write.writerow(header)
+            csv_write.writerow(row)
+
+
+def check_user_exists_in_csv(
+    regno: str, uniqid: str, filename: str = "CyberRegistrations.csv"
+):
+    if not check_if_exists_in_directory(filename):
+        return False
+    else:
+        with open(filename, "r") as csv_file_obj:
+            csv_reader = csv.DictReader(csv_file_obj)
+            for row in csv_reader:
+                if regno == row["regno"]:
+                    return True
+                elif uniqid == row["uniqid"]:
+                    return True
+            return False
+
+
+def check_password(reg_no: str, password: str) -> tuple[bool, bool]:
+    # Returns tuple of whether user_exists, and if exists, if password is correctt
+    user_exists = False
+    if check_if_exists_in_directory("CyberRegistrations.csv"):
+        if check_user_exists_in_csv(reg_no, ""):
+            with open("CyberRegistrations.csv", "r") as csv_file_obj:
+                csv_reader = csv.DictReader(csv_file_obj)
+                for row in csv_reader:
+                    if row["regno"] == reg_no:
+                        user_exists = True
+                        if row["password"] == password:
+                            return (user_exists, True)
+                        return (user_exists, False)
+    return (user_exists, False)
+
+
+def get_team_details(regno: str) -> list:
+    if not check_if_exists_in_directory("CyberRegistrations.csv"):
+        return False
+    else:
+        with open("CyberRegistrations.csv", "r") as csv_file_obj:
+            csv_reader = csv.DictReader(csv_file_obj)
+            for row in csv_reader:
+                if row["regno"] == regno:
+                    return row
+            return []

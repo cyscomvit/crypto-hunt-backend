@@ -81,8 +81,7 @@ section span:hover {
     top: 0.2rem;
     color: white;
     background-color: black;
-    width: 38rem;
-    height: 38rem;
+    width: 40rem;
     z-index: 1;
     overflow: hidden;
     box-shadow: inset -5px -5px rgba(0, 0, 0, 0.5);
