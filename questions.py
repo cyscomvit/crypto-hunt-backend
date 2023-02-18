@@ -4,7 +4,7 @@ from random import shuffle as randshuffle
 
 
 def get_answer_for_a_question(question_no: int) -> str:
-    return get_questions()[question_no - 1]["ans"]
+    return get_questions()[int(question_no) - 1]["ans"]
 
 
 def get_questions() -> list:

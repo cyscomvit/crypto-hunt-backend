@@ -120,8 +120,12 @@ def login():
     return render_template("login.html", error=None)
 
 
-def check_answer(submitted_answer: str, question_no: int):
-    ...
+def check_answer(submitted_answer: str, question_no: int) -> bool:
+    if get_answer_for_a_question(
+        question_no
+    ).casefold() == submitted_answer.casefold().replace(" ", ""):
+        return True
+    return False    
 
 
 @app.route("/play", methods=["GET", "POST"])
@@ -140,6 +144,7 @@ def play():
                 session["current_question"]
             ),
             name=session["name"],
+            message="",
         )
 
 
