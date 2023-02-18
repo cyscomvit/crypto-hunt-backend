@@ -120,7 +120,7 @@ def login():
     return render_template("login.html", error=None)
 
 
-def check_answer(user_id: str, question_no: int, answer: str):
+def check_answer(submitted_answer: str, question_no: int):
     ...
 
 
