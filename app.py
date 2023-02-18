@@ -125,12 +125,12 @@ def check_answer(submitted_answer: str, question_no: int) -> bool:
         question_no
     ).casefold() == submitted_answer.casefold().replace(" ", ""):
         return True
-    return False    
+    return False
 
 
 @app.route("/play", methods=["GET", "POST"])
 def play():
-    if not session.get("name") and session.get("current_question"):
+    if not session.get("name") or not session.get("current_question"):
         return render_template("login.html", error="Please login first")
     if request.method == "POST":
         ...
