@@ -39,20 +39,20 @@ def index_page():
 
 
 @app.route("/register", methods=["POST", "GET"])
-def register(data: dict = {}):
+def register():
     if request.method == "POST":
-        if not data:
-            data["name"] = request.form["name"]
-            data["regno"] = request.form["regno"].upper()
-            data["email"] = request.form["email"]
-            data["password"] = hasher(request.form["password"])
-            data["phone"] = request.form["phone"]
-            data["receiptno"] = request.form["receiptno"]
+        data = {}
+        data["name"] = request.form["name"]
+        data["regno"] = request.form["regno"].upper()
+        data["email"] = request.form["email"]
+        data["password"] = hasher(request.form["password"])
+        data["phone"] = request.form["phone"]
+        data["receiptno"] = request.form["receiptno"]
 
         data["uniqid"] = generate_uuid()
         data["sequence"] = generate_sequence_for_a_team()
         data["current_question"] = data["sequence"][1]
-
+        print(data["regno"] + " - " + data["name"], "tried to register")
         if check_user_exists_in_csv(data["regno"], data["uniqid"]):
             filled = True
             message = "You have already registered!"
