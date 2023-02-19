@@ -1,6 +1,8 @@
 import csv
 import os
 
+from questions import get_answer_for_a_question, get_current_question, update_current_question
+
 from dotenv import load_dotenv
 from flask import Flask, render_template, request, session, redirect
 
@@ -100,6 +102,7 @@ def login():
     if request.method == "POST":
         regno = request.form["regno"].upper()
         password = hasher(request.form["password"])
+        print(regno + " - " + password, "tried to login")
         if check_password(regno, password):
             session["name"] = get_team_details(regno)["name"]
             session["password"] = get_team_details(regno)["password"]
@@ -122,17 +125,24 @@ def play():
         return render_template("login.html", success=None)
 
     # if already logged in, redirect to play page
-    if "regno" in session:
-        return render_template("play.html", success=True, name=session["name"])
+    # Display the current question
+    current_question = get_current_question(session["regno"])
+    question = get_question_for_a_question_number(current_question)
 
     if request.method == "POST":
         answer = request.form["answer"]
-        if answer == get_answer_for_a_question(session["current_question"]):
-            session["current_question"] += 1
-            return render_template("play.html", success=True, name=session["name"])
+        print(f"{session['regno']} - {session['name']} answered {answer}")
+        if answer == get_answer_for_a_question(current_question):
+            print(f"{session['regno']} - {session['name']} answered correctly")
         else:
-            return render_template("play.html", success=False, name=session["name"])
-
+            print(f"{session['regno']} - {session['name']} answered incorrectly")
+    return render_template(
+        "play.html",
+        success=True,
+        name=session["name"],
+        question=question,
+        current_question=current_question,
+    )
 
 @app.route("/logout")
 def logout():

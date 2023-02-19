@@ -1,14 +1,15 @@
-from json import load as jsonload
+
+import json
 from random import choice as randchoice
 from random import shuffle as randshuffle
 
 
-def get_answer_for_a_question(question_no: int) -> str:
-    return get_questions()[int(question_no) - 1]["ans"]
+def get_answer_for_a_question(question_number: int | str = 1) -> str:
+    return (get_questions()[int(question_number)])["ans"]
 
 def get_questions() -> list:
     with open("./questions.json", "r") as f:
-        question_dict = jsonload(f)
+        question_dict = json.load(f)
     return question_dict
 
 
@@ -22,18 +23,16 @@ def get_specific_difficulty_questions(question_dict: dict, difficuty: str) -> li
 
 
 def get_current_question(regno: str):
-    from firebase_functions import get_current_question_from_firebase
-    from csv_functions import get_team_details, header
-
-    firebase_question = get_current_question_from_firebase(regno=regno)
-    csv_question = int(get_team_details[header.index("current_question")])
-
-    return min(firebase_question, csv_question)
-    ...
+    from csv_functions import get_team_details
+    return get_team_details(regno)["current_question"]
 
 
 def update_current_question(regno: str, current_question: int | str):
-    ...
+    from csv_functions import write_to_csv
+    from firebase_functions import update_current_question_in_firebase
+
+    write_to_csv(regno, "current_question", current_question)
+    update_current_question_in_firebase(regno, current_question)
 
 
 def str_sequence_to_int_list(sequence: str) -> list[int]:
@@ -62,5 +61,6 @@ def generate_sequence_for_a_team() -> list[int]:
         sequence += hard_questions
     return sequence
 
-def get_question_for_a_question_number(question_number: int | str = 1):
-    return get_questions[int(question_number) - 1]["question"]
+def get_question_for_a_question_number(question_number: int | str) -> str:
+    return (get_questions()[int(question_number)])["ques"]
+

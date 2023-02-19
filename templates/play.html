@@ -2,9 +2,10 @@ logged in as {{name}}
 
 <a href="/logout">logout</a>
 
-<p id="question">{question.number}. {question.text}</p>
+<p id="question">{{current_question}} {{question}}</p>
 
-<input type="text" id="answer" />
-<label for="answer">Answer</label>
-
-<button id="submit">Submit</button>
+<form method="post" action="/play">
+    <label for="answer">Answer</label>
+    <input type="text" id="answer" name="answer" required />
+    <input type="submit" value="Submit" />
+</form>
