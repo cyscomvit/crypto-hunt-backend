@@ -67,7 +67,7 @@ def check_password(regno: str, password: str) -> bool:
             return False
 
 
-def get_team_details(regno: str) -> list:
+def get_team_details(regno: str) -> list["str"]:
     if not check_if_exists_in_directory("CyberRegistrations.csv"):
         return False
     else:

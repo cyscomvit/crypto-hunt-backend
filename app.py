@@ -1,8 +1,13 @@
 import csv
 import os
 
-from questions import get_answer_for_a_question, get_current_question, update_current_question
+from questions import (
+    get_answer_for_a_question,
+    get_current_question,
+    update_current_question,
+)
 
+import logging
 from dotenv import load_dotenv
 from flask import Flask, render_template, request, session, redirect
 
@@ -14,14 +19,16 @@ from csv_functions import (
     header,
     write_to_csv,
 )
-from firebase_functions import initialize_firebase_for_a_user
+from firebase_functions import (
+    initialize_firebase_for_a_user,
+    get_ordered_list_of_users_based_on_points,
+)
 from miscellaneous import *
 from questions import (
     generate_sequence_for_a_team,
     get_answer_for_a_question,
     get_current_question,
     get_question_for_a_question_number,
-    str_sequence_to_int_list,
 )
 from spreadsheet import write_to_gsheet
 
@@ -31,6 +38,15 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 
 Session(app)
+
+
+_ = logging.getLogger("cyber odyssey")
+logging.basicConfig(
+    format="%(asctime)s %(message)s",
+    filename="cyber-odyssey.log",
+    encoding="utf-8",
+    level=logging.DEBUG,
+)
 
 
 @app.route("/", methods=["GET"])
@@ -43,17 +59,19 @@ def index_page():
 @app.route("/register", methods=["POST", "GET"])
 def register():
     if request.method == "POST":
-        data = {}
+        data = dict()
         data["name"] = request.form["name"]
-        data["regno"] = request.form["regno"].upper()
+        data["regno"] = request.form["regno"].casefold()
         data["email"] = request.form["email"]
         data["password"] = hasher(request.form["password"])
-        data["phone"] = request.form["phone"]
-        data["receiptno"] = request.form["receiptno"]
+        data["phone"] = int(request.form["phone"])
+        data["receiptno"] = int(request.form["receiptno"])
 
         data["uniqid"] = generate_uuid()
-        data["sequence"] = generate_sequence_for_a_team()
-        data["current_question"] = data["sequence"][1]
+        team_sequence = generate_sequence_for_a_team()
+        data["current_question"] = int(team_sequence[0])
+        data["sequence"] = str(team_sequence)
+        print(data["current_question"])
         print(data["regno"] + " - " + data["name"], "tried to register")
         if check_user_exists_in_csv(data["regno"], data["uniqid"]):
             filled = True
@@ -108,7 +126,9 @@ def login():
             session["password"] = get_team_details(regno)["password"]
             session["regno"] = regno
             session["uniqid"] = get_team_details(regno)["uniqid"]
-            session["current_question"] = get_team_details(regno)["current_question"]
+            session["current_question"] = get_team_details(regno)
+            ["current_question"]
+            print(session["current_question"])
             return redirect("/play")
 
         else:
@@ -127,27 +147,58 @@ def play():
     # if already logged in, redirect to play page
     # Display the current question
     current_question = get_current_question(session["regno"])
+    # print(current_question)
     question = get_question_for_a_question_number(current_question)
+    # print(question)
+
+    count = 1
 
     if request.method == "POST":
         answer = request.form["answer"]
-        print(f"{session['regno']} - {session['name']} answered {answer}")
         if answer == get_answer_for_a_question(current_question):
             print(f"{session['regno']} - {session['name']} answered correctly")
+            count += 1
+            update_current_question(session["regno"], current_question)
+            question = get_question_for_a_question_number(current_question)
+            render_template(
+                "play.html",
+                success=True,
+                name=session["name"],
+                question=question,
+                questionNumber=count,
+            )
         else:
             print(f"{session['regno']} - {session['name']} answered incorrectly")
+            render_template(
+                "play.html",
+                success=False,
+                name=session["name"],
+                question=question,
+                questionNumber=count,
+            )
+
     return render_template(
         "play.html",
         success=True,
         name=session["name"],
         question=question,
-        current_question=current_question,
+        questionNumber=count,
     )
+
+
+@app.route("/leaderboard")
+def leaderboard():
+    ordered_list = get_ordered_list_of_users_based_on_points()
+
 
 @app.route("/logout")
 def logout():
     session.clear()
     return redirect("/login")
+
+
+def calculate_points_for_answering(question_no: int, hints_used: int):
+    ...
 
 
 load_dotenv("crypto.env")
