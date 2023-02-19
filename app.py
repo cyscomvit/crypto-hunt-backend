@@ -39,25 +39,25 @@ def index_page():
 
 
 @app.route("/register", methods=["POST", "GET"])
-def register(data: dict = {}):
+def register():
     if request.method == "POST":
-        if not data:
-            data["name"] = request.form["name"]
-            data["regno"] = request.form["regno"].upper()
-            data["email"] = request.form["email"]
-            data["password"] = hasher(request.form["password"])
-            data["phone"] = request.form["phone"]
-            data["receiptno"] = request.form["receiptno"]
+        data = {}
+        data["name"] = request.form["name"]
+        data["regno"] = request.form["regno"].upper()
+        data["email"] = request.form["email"]
+        data["password"] = hasher(request.form["password"])
+        data["phone"] = request.form["phone"]
+        data["receiptno"] = request.form["receiptno"]
 
         data["uniqid"] = generate_uuid()
         data["sequence"] = generate_sequence_for_a_team()
-        data["current_question"] = 1
-
+        data["current_question"] = data["sequence"][1]
+        print(data["regno"] + " - " + data["name"], "tried to register")
         if check_user_exists_in_csv(data["regno"], data["uniqid"]):
-            f = True
+            filled = True
             message = "You have already registered!"
         else:
-            f = True
+            filled = True
             message = "You have successfully registered"
             row = [
                 data["name"],
@@ -80,16 +80,18 @@ def register(data: dict = {}):
             session["regno"] = data["regno"]
             session["uniqid"] = data["uniqid"]
             session["current_question"] = data["current_question"]
-            return render_template(
-                "register.html",
-                show_message=message,
-                filled=f,
-            )
+        return render_template(
+            "register.html",
+            yet_to_register=False,
+            show_message=message,
+            filled=filled,
+        )
+    # 👇 Requested /register in a get method, return normally
     return render_template("register.html", yet_to_register=True, filled=False)
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
-# if already logged in, redirect to play page (Enable this after testing)
+    # if already logged in, redirect to play page (Enable this after testing)
 
     # if "regno" in session:
     #     return render_template("play.html", success=True, name=session["name"])
@@ -108,6 +110,31 @@ def login():
         else:
             return render_template("login.html", success=False, message="Invalid Credentials")
     return render_template("login.html", success=None)
+            return render_template("play.html", success=True, name=session["name"])
+        else:
+            return render_template(
+                "login.html", success=False, message="Invalid Credentials"
+            )
+    return render_template("login.html", success=None)
+
+
+@app.route("/play", methods=["POST", "GET"])
+def play():
+    # if not logged in, redirect to login page
+    if "regno" not in session:
+        return render_template("login.html", success=None)
+
+    # if already logged in, redirect to play page
+    if "regno" in session:
+        return render_template("play.html", success=True, name=session["name"])
+
+    if request.method == "POST":
+        answer = request.form["answer"]
+        if answer == get_answer_for_a_question(session["current_question"]):
+            session["current_question"] += 1
+            return render_template("play.html", success=True, name=session["name"])
+        else:
+            return render_template("play.html", success=False, name=session["name"])
 
 @app.route("/play",methods=["POST", "GET"])
 def play():

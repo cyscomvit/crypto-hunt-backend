@@ -12,9 +12,9 @@ def get_questions() -> list:
     return question_dict
 
 
-def get_specific_difficulty_questions(question_dict: dict, difficuty: str) -> list[str]:
+def get_specific_difficulty_questions(question_dict: dict, difficuty: str) -> list[int]:
     to_return = [
-        str(i)
+        i
         for i in range(len(question_dict))
         if question_dict[i]["difficulty"].casefold() == difficuty.casefold()
     ]
@@ -43,7 +43,7 @@ def str_sequence_to_int_list(sequence: str) -> list[int]:
     return to_return
 
 
-def generate_sequence_for_a_team() -> list[str]:
+def generate_sequence_for_a_team() -> list[int]:
     """Generates a sequence of questions for each team."""
     question_dict = get_questions()
     easy_questions = get_specific_difficulty_questions(question_dict, "easy")
