@@ -134,18 +134,6 @@ def play():
             return render_template("play.html", success=False, name=session["name"])
 
 
-@app.route("/play", methods=["POST", "GET"])
-def play():
-    # if not logged in, redirect to login page
-    if "regno" not in session:
-        return render_template("login.html", success=None)
-
-    # if already logged in, redirect to play page
-    if "regno" in session:
-        # TODO
-        return render_template("play.html", success=True, name=session["name"])
-
-
 @app.route("/logout")
 def logout():
     session.clear()
