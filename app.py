@@ -68,7 +68,7 @@ def register():
                 data["receiptno"],
                 data["uniqid"],
                 str(data["sequence"]),
-                data["current_question"]
+                data["current_question"],
             ]
             write_to_csv(data, filename="CyberRegistrations.csv", row=row)
             write_to_gsheet(
@@ -89,6 +89,7 @@ def register():
     # 👇 Requested /register in a get method, return normally
     return render_template("register.html", yet_to_register=True, filled=False)
 
+
 @app.route("/login", methods=["POST", "GET"])
 def login():
     # if already logged in, redirect to play page (Enable this after testing)
@@ -107,10 +108,6 @@ def login():
             session["current_question"] = get_team_details(regno)["current_question"]
             return redirect("/play")
 
-        else:
-            return render_template("login.html", success=False, message="Invalid Credentials")
-    return render_template("login.html", success=None)
-            return render_template("play.html", success=True, name=session["name"])
         else:
             return render_template(
                 "login.html", success=False, message="Invalid Credentials"
@@ -136,22 +133,24 @@ def play():
         else:
             return render_template("play.html", success=False, name=session["name"])
 
-@app.route("/play",methods=["POST", "GET"])
+
+@app.route("/play", methods=["POST", "GET"])
 def play():
     # if not logged in, redirect to login page
     if "regno" not in session:
         return render_template("login.html", success=None)
-    
+
     # if already logged in, redirect to play page
     if "regno" in session:
-        #TODO
+        # TODO
         return render_template("play.html", success=True, name=session["name"])
+
 
 @app.route("/logout")
 def logout():
     session.clear()
     return redirect("/login")
-    
+
 
 load_dotenv("crypto.env")
 
