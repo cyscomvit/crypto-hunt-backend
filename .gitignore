@@ -1,5 +1,6 @@
 testing.py
-credentials.json
+Pipfile
+Pipfile.lock
 
 *.env
 *.log

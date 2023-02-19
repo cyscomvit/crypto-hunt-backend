@@ -68,7 +68,7 @@ def register(data: dict = {}):
                 data["receiptno"],
                 data["uniqid"],
                 str(data["sequence"]),
-                data["current_question"],
+                data["current_question"]
             ]
             write_to_csv(data, filename="CyberRegistrations.csv", row=row)
             write_to_gsheet(
@@ -87,66 +87,47 @@ def register(data: dict = {}):
             )
     return render_template("register.html", yet_to_register=True, filled=False)
 
-
 @app.route("/login", methods=["POST", "GET"])
-@app.route("/login.html", methods=["POST", "GET"])
 def login():
+# if already logged in, redirect to play page (Enable this after testing)
+
+    # if "regno" in session:
+    #     return render_template("play.html", success=True, name=session["name"])
+
     if request.method == "POST":
-        regno = request.form["regno"]
+        regno = request.form["regno"].upper()
         password = hasher(request.form["password"])
-        user_exists, password_correct = check_password(regno, password)
-        if user_exists:
-            if password_correct:
-                row = get_team_details(regno)
-                if row:
-                    session["regno"] = row[header.index("regno")]
-                    session["name"] = row[header.index("name")]
-                    session["uniqid"] = row[header.index("uniqid")]
-                    session["current_question"] = get_current_question(session["regno"])
-                    return render_template(
-                        "play.html",
-                        question_text=get_question_for_a_question_number(
-                            session["current_question"]
-                        ),
-                        name=session["name"],
-                    )
-                else:
-                    return render_template(
-                        "login.html",
-                        error='User does not exist, please </a href="/register">register</a>!',
-                    )
-    else:
-        return render_template("login.html", error="Wrong password. Try again")
-    return render_template("login.html", error=None)
+        if check_password(regno, password):
+            session["name"] = get_team_details(regno)["name"]
+            session["password"] = get_team_details(regno)["password"]
+            session["regno"] = regno
+            session["uniqid"] = get_team_details(regno)["uniqid"]
+            session["current_question"] = get_team_details(regno)["current_question"]
+            return render_template("play.html", success=True, name=session["name"])
 
+        else:
+            return render_template("login.html", success=False, message="Invalid Credentials")
+    return render_template("login.html", success=None)
 
-def check_answer(submitted_answer: str, question_no: int) -> bool:
-    if get_answer_for_a_question(
-        question_no
-    ).casefold() == submitted_answer.casefold().replace(" ", ""):
-        return True
-    return False
-
-
-@app.route("/play", methods=["GET", "POST"])
+@app.route("/play",methods=["POST", "GET"])
 def play():
-    if not session.get("name") or not session.get("current_question"):
-        return render_template("login.html", error="Please login first")
-    if request.method == "POST":
-        ...
-    else:
-        session["answer_hash"] = hasher(
-            get_answer_for_a_question(session["current_question"])
-        )
-        return render_template(
-            "play.html",
-            question_text=get_question_for_a_question_number(
-                session["current_question"]
-            ),
-            name=session["name"],
-            message="",
-        )
+    # if not logged in, redirect to login page
+    if "regno" not in session:
+        return render_template("login.html", success=None)
+    
+    # if already logged in, redirect to play page
+    if "regno" in session:
 
+        return render_template("play.html", success=True, name=session["name"])
+    
+    if request.method == "POST":
+        answer = request.form["answer"]
+        if answer == get_answer_for_a_question(session["current_question"]):
+            session["current_question"] += 1
+            return render_template("play.html", success=True, name=session["name"])
+        else:
+            return render_template("play.html", success=False, name=session["name"])
+    
 
 load_dotenv("crypto.env")
 
