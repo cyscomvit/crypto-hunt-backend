@@ -136,9 +136,6 @@ def play():
             print(f"{session['regno']} - {session['name']} answered correctly")
         else:
             print(f"{session['regno']} - {session['name']} answered incorrectly")
-
-
-
     return render_template(
         "play.html",
         success=True,
