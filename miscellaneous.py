@@ -1,9 +1,7 @@
 
 def generate_uuid() -> str:
     from uuid import uuid4
-
     return str(uuid4())
-
 
 def hasher(text: str) -> str:
     from hashlib import sha256

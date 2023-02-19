@@ -6,7 +6,6 @@ from random import shuffle as randshuffle
 def get_answer_for_a_question(question_no: int) -> str:
     return get_questions()[int(question_no) - 1]["ans"]
 
-
 def get_questions() -> list:
     with open("./questions.json", "r") as f:
         question_dict = jsonload(f)
@@ -63,6 +62,5 @@ def generate_sequence_for_a_team() -> list[str]:
         sequence += hard_questions
     return sequence
 
-
 def get_question_for_a_question_number(question_number: int | str = 1):
-    return get_questions[int(question_number) - 1]
+    return get_questions[int(question_number) - 1]["question"]

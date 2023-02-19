@@ -54,20 +54,17 @@ def check_user_exists_in_csv(
             return False
 
 
-def check_password(reg_no: str, password: str) -> tuple[bool, bool]:
-    # Returns tuple of whether user_exists, and if exists, if password is correctt
-    user_exists = False
-    if check_if_exists_in_directory("CyberRegistrations.csv"):
-        if check_user_exists_in_csv(reg_no, ""):
-            with open("CyberRegistrations.csv", "r") as csv_file_obj:
-                csv_reader = csv.DictReader(csv_file_obj)
-                for row in csv_reader:
-                    if row["regno"] == reg_no:
-                        user_exists = True
-                        if row["password"] == password:
-                            return (user_exists, True)
-                        return (user_exists, False)
-    return (user_exists, False)
+# create a function check_password by passing regno and password is correct return True else False
+def check_password(regno: str, password: str) -> bool:
+    if not check_if_exists_in_directory("CyberRegistrations.csv"):
+        return False
+    else:
+        with open("CyberRegistrations.csv", "r") as csv_file_obj:
+            csv_reader = csv.DictReader(csv_file_obj)
+            for row in csv_reader:
+                if row["regno"] == regno and row["password"] == password:
+                    return True
+            return False
 
 
 def get_team_details(regno: str) -> list:
