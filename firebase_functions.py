@@ -51,7 +51,6 @@ def get_current_question_from_firebase(regno: str) -> int:
     all_users_data = users_ref.get()
     for item in all_users_data:
         if all_users_data[item]["regno"].casefold() == regno.casefold():
-            print("here")
             selector = users_ref.child(item).get()
             return int(selector["current_question"])
 
@@ -64,3 +63,30 @@ def update_current_question_to_firebase(regno: str, question_number: int) -> Non
             data["current_question"] = int(question_number)
             selector_update = users_ref.child(item)
             selector_update.update(data)
+
+
+def get_points(regno: str) -> int:
+    all_users_data = users_ref.get()
+    for item in all_users_data:
+        if all_users_data[item]["regno"].casefold() == regno.casefold():
+            data = users_ref.child(item).get()
+            if "points" in data:
+                return int(data["points"])
+            else:
+                set_points(regno)
+                return 0
+
+
+def set_points(regno: str, points: int = 0):
+    all_users_data = users_ref.get()
+    for item in all_users_data:
+        if all_users_data[item]["regno"].casefold() == regno.casefold():
+            data = users_ref.child(item).get()
+            data["points"] = points
+            print(f"User {regno} has {points} points now")
+            selector_update = users_ref.child(item)
+            selector_update.update(data)
+
+
+def add_points(regno: str, points: int = 0):
+    set_points(regno, get_points(regno) + int(points))
