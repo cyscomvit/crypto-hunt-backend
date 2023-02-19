@@ -51,13 +51,13 @@ def register(data: dict = {}):
 
         data["uniqid"] = generate_uuid()
         data["sequence"] = generate_sequence_for_a_team()
-        data["current_question"] = 1
+        data["current_question"] = data["sequence"][1]
 
         if check_user_exists_in_csv(data["regno"], data["uniqid"]):
-            f = True
+            filled = True
             message = "You have already registered!"
         else:
-            f = True
+            filled = True
             message = "You have successfully registered"
             row = [
                 data["name"],
@@ -82,9 +82,11 @@ def register(data: dict = {}):
             session["current_question"] = data["current_question"]
         return render_template(
             "register.html",
+            yet_to_register=False,
             show_message=message,
-            filled=f,
+            filled=filled,
         )
+    # 👇 Requested /register in a get method, return normally
     return render_template("register.html", yet_to_register=True, filled=False)
 
 
