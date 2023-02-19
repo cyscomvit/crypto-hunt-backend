@@ -81,10 +81,10 @@ def register(data: dict = {}):
             session["uniqid"] = data["uniqid"]
             session["current_question"] = data["current_question"]
         return render_template(
-                "register.html",
-                show_message=message,
-                filled=f,
-            )
+            "register.html",
+            show_message=message,
+            filled=f,
+        )
     return render_template("register.html", yet_to_register=True, filled=False)
 
 
