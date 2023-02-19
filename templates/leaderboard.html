@@ -1,0 +1,26 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Team Name</th>
+                <th>Points</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in ordered_list %}
+            <tr class="data">
+                <td>{{  user[0]  }}</td>
+                <td>{{  user[1]  }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>

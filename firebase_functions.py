@@ -100,16 +100,16 @@ def add_points(regno: str, points: int = 0):
     set_points(regno, get_points(regno) + int(points))
 
 
-def get_ordered_list_of_users_based_on_points() -> list["str"]:
+def get_ordered_list_of_users_based_on_points() -> list[tuple[str, str]]:
     # Returns a largest to smallest list of user based on their points
     all_users_ref = users_ref.get()
     users_and_points = {
-        user: all_users_ref[user]["points"]
+        all_users_ref[user]["name"] + " - " + user.upper(): str(all_users_ref[user]["points"])
         for user in all_users_ref
-        if user and "points" in all_users_ref[user]
+        if user and "points" in all_users_ref[user] and "name" in all_users_ref[user]
     }
     print(users_and_points)
     sorted_users_and_points = sorted(
         users_and_points.items(), key=lambda x: x[1], reverse=True
     )
-    return [user_and_points[0] for user_and_points in sorted_users_and_points]
+    return sorted_users_and_points

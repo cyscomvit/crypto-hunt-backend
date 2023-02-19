@@ -189,6 +189,7 @@ def play():
 @app.route("/leaderboard")
 def leaderboard():
     ordered_list = get_ordered_list_of_users_based_on_points()
+    return render_template('leaderboard.html',ordered_list=ordered_list)
 
 
 @app.route("/logout")
