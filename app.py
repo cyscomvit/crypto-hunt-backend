@@ -189,7 +189,7 @@ def play():
 @app.route("/leaderboard")
 def leaderboard():
     ordered_list = get_ordered_list_of_users_based_on_points()
-    return render_template('leaderboard.html',ordered_list=ordered_list)
+    return render_template("leaderboard.html", ordered_list=ordered_list)
 
 
 @app.route("/logout")
@@ -198,8 +198,6 @@ def logout():
     return redirect("/login")
 
 
-def calculate_points_for_answering(question_no: int, hints_used: int):
-    ...
 
 
 load_dotenv("crypto.env")

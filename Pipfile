@@ -9,6 +9,7 @@ gspread = "*"
 gunicorn = "*"
 python-dotenv = "*"
 firebase-admin = "*"
+icecream = "*"
 
 [dev-packages]
 
