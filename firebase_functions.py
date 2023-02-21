@@ -85,7 +85,6 @@ def update_team_detail(regno: str, field_name: str, field_value):
 
 def check_password(regno: str, hashed_pw: str) -> bool:
     pw_on_firebase = get_team_details(regno, "password")
-    print(pw_on_firebase)
     if pw_on_firebase:
         if hashed_pw.casefold() == pw_on_firebase.casefold():
             return True

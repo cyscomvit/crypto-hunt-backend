@@ -29,7 +29,7 @@ class Question:
         self.answer = answerify(question["ans"])
         self.smol_ans = hasher(self.answer)
         self.difficulty = question["difficulty"]
-        self.number = question["no"]
+        self.no = question["no"]
 
     def check_answer(self, given_answer: str) -> bool:
         if answerify(given_answer) == self.answer:

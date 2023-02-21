@@ -19,3 +19,45 @@ body {
 
     width: max-content;
 }
+button, .button {
+    width: 150px;
+    height: 40px;
+    outline: none;
+    color: rgb(255, 255, 255);
+    background: #0055bd;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 5px;
+    font-size: medium;
+    border: none;
+    margin: 1rem;
+    text-align: center;
+}
+.play-section {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    width: 60vw;
+}
+.form-input {
+    margin: 1rem 1rem;
+    padding: 0.8rem;
+    outline: none;
+    border-radius: 10px;
+    width: 60%;
+}
+@media screen and (max-width: 700px) {
+    .form-input {
+        width: 90%;
+    }
+}
+input{
+    color: black;
+}

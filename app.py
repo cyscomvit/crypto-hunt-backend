@@ -28,13 +28,35 @@ app.config["SESSION_TYPE"] = "filesystem"
 
 Session(app)
 
-_ = logging.getLogger("cyber odyssey")
-logging.basicConfig(
-    format="%(asctime)s %(message)s",
-    filename="cyber-odyssey.log",
-    encoding="utf-8",
-    level=logging.DEBUG,
-)
+
+def log_and_print(msg: str, level: str = "warn") -> None:
+    """
+    This function can be used for printing an error message, as well as for logging it by passing the level to the level parameter.
+
+    This function looks for the env variable `KEEP_A_LOG`, to check whether it should keep logs to the file.
+
+    Printing always happens, irrespective of the value of `KEEP_A_LOG`.
+
+    #### Parameters
+        `msg` - The message to print/log.
+        `
+    """
+    print(msg)
+    logger = logging.getLogger("cyberodyssey")
+    logging.basicConfig(
+        format="%(asctime)s %(message)s",
+        filename="cyber-odyssey.log",
+        encoding="utf-8",
+        level=logging.DEBUG,
+    )
+    if level == "warn":
+        logger.warning(msg)
+    elif level == "critical":
+        logger.critical(msg)
+    elif level == "info":
+        logger.info(msg)
+    else:
+        logger.debug(msg)
 
 
 @app.route("/", methods=["GET"])
@@ -116,7 +138,7 @@ def login():
             session["uniqid"] = d["uniqid"]
             session["current_question"] = d["current_question"]
             print(
-                f"User {session['regno']} is on hist {session['current_question']} question"
+                f"User {session['regno']} has logged in, is on {session['current_question']} question"
             )
             return redirect("/play")
 
@@ -134,23 +156,22 @@ def play():
 
     show_name = session["name"] if "name" in session else session["regno"]
 
-    attempted, correct_answer = False, False
-    answer_messages = ["Correct Answer", "Wrong Answer"]
+    attempted_correct = [False, False]
 
     current_question = session["current_question"]
     ques = get_personal_current_question(regno=session["regno"])
 
     # Post method, meaning sent answer, didn't request page. Just calculates whether right answer or not and returns the page.
     if request.method == "POST":
-        attempted = True
+        attempted_correct[0] = True
         submitted_answer = request.form["answer"]
         if submitted_answer == get_answer_for_a_question(current_question):
-            correct_answer = True
-            update_current_question(session["regno"], current_question)
-            question = get_question_for_a_question_number(current_question)
+            attempted_correct[1] = True
+            # update_current_question(session["regno"], current_question)
+            # question = get_question_for_a_question_number(current_question)
         else:
-            correct_answer = False
-        print(f"{session['regno']} - {session['name']} answered {correct_answer}")
+            attempted_correct[1] = False
+        print(f"{session['regno']} - {session['name']} answered {submitted_answer}")
         return redirect("/play")
 
     # if already logged in, redirect to play page
@@ -158,9 +179,10 @@ def play():
     return render_template(
         "play.html",
         show_name=show_name,
-        attempted=attempted,
+        attempted_correct=attempted_correct,
         q_type=ques.type,
         question=ques.text,
+        ques_no=ques.no,
     )
 
 

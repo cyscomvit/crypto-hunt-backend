@@ -6,13 +6,12 @@
     <meta name="viewport" content="width=device-width , initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Login - Cyber Odyssey</title>
+    <title>Play - Cyber Odyssey</title>
 
     <link rel="icon" href="/static/images/logo.png">
     <link rel="shortcut icon" href="/static/images/logo.png" type="image/x-icon" />
 
     <link href="/static/css/play.css" rel="stylesheet">
-    <link href="/static/css/animate.css" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,24 +38,30 @@
                 </div>
             </nav>
         </header>
-        <div>
-            <h1 class="form-title">Play - CyberOdessy</h1>
-            {% if attempted %}
-            <div class="show-message">
-                <p class="show-message-p">{{ show_message }}</p>
+        <section class="play-section">
+            <h1 class="form-title">Play - Cyber Odyssey</h1>
+            <div>
+                {% if attempted_correct[0] %}
+                {% if attempted_correct[1] %}
+                <p style="color: green;">Your answer is correct!</p>
+                {% elif not attempted_correct[1] %}
+                <p style="color: green;">Your answer is correct!</p>
+                {% endif %}
+                {% endif %}
             </div>
-            {% endif %}
-        </div>
-        <form method="post" action="/play">
-            <label for="answer">Answer</label>
-            <input type="text" id="answer" name="answer" required />
-            <input type="submit" value="Submit" />
-        </form>
-        <div>
-            {% if show_message %}
-            <a href="/"><button>Go Back</button></a>
-            {% endif %}
-        </div>
+            <div class="question-holder">
+                {% if q_type=="i" %}
+                <img class="question-imageg" src="{{ question  }}">
+                {% elif q_type=="t" %}
+                <img class="question-imageg" src="{{ question  }}">
+                {% endif %}
+            </div>
+            <form method="post" action="/play">
+                <label for="answer">Your answer</label>
+                <input class="form-input" type="text" id="answer" name="answer" required />
+                <input class="button" type="submit" value="Submit" />
+            </form>
+        </section>
     </main>
 </body>
 
