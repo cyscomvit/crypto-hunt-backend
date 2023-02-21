@@ -1,3 +1,9 @@
+import os
+from dotenv import load_dotenv
+
+load_dotenv("crypto.env")
+
+
 def calculate_current_time_left() -> int:
     import time, datetime, pytz
 
@@ -77,17 +83,21 @@ def calculate_points_for_answering(
         divider = 1.3
     elif hints_used >= 2:
         divider = 1.6
-    ratio = multiplier /divider
-    points = int(
-        abs(
-            (
-                
-                * ((((time_left % base_value)) / time_differentiator))
-            )
-            + 1
-        )
+    ratio = multiplier / divider
+    points_without_time = int(ratio + 1)
+    points_with_time = int(
+        abs(((((ratio * (time_left - base_value)) / time_differentiator))) + 1)
     )
+
     from icecream import ic
 
-    ic(points, time_left, time_differentiator, base_value, multiplier, divider)
-    return points
+    ic(
+        points_without_time,
+        points_with_time,
+        time_left,
+        time_differentiator,
+        base_value,
+        ratio,
+    )
+
+    return points_without_time, points_with_time

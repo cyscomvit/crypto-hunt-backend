@@ -52,28 +52,3 @@ def check_user_exists_in_csv(
                 elif uniqid == row["uniqid"]:
                     return True
             return False
-
-
-# create a function check_password by passing regno and password is correct return True else False
-def check_password(regno: str, password: str) -> bool:
-    if not check_if_exists_in_directory("CyberRegistrations.csv"):
-        return False
-    else:
-        with open("CyberRegistrations.csv", "r") as csv_file_obj:
-            csv_reader = csv.DictReader(csv_file_obj)
-            for row in csv_reader:
-                if row["regno"] == regno and row["password"] == password:
-                    return True
-            return False
-
-
-def get_team_details(regno: str) -> list["str"]:
-    if not check_if_exists_in_directory("CyberRegistrations.csv"):
-        return False
-    else:
-        with open("CyberRegistrations.csv", "r") as csv_file_obj:
-            csv_reader = csv.DictReader(csv_file_obj)
-            for row in csv_reader:
-                if row["regno"] == regno:
-                    return row
-            return []

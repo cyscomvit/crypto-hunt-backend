@@ -13,15 +13,16 @@ from flask import Flask, render_template, request, session, redirect
 
 from flask_session import Session
 from csv_functions import (
-    check_password,
     check_user_exists_in_csv,
-    get_team_details,
     header,
     write_to_csv,
 )
 from firebase_functions import (
     initialize_firebase_for_a_user,
     get_ordered_list_of_users_based_on_points,
+    check_password,
+    get_team_details,
+    get_team_dict,
 )
 from miscellaneous import *
 from questions import (
@@ -38,7 +39,6 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 
 Session(app)
-
 
 _ = logging.getLogger("cyber odyssey")
 logging.basicConfig(
@@ -90,11 +90,11 @@ def register():
                 str(data["sequence"]),
                 data["current_question"],
             ]
-            write_to_csv(data, filename="CyberRegistrations.csv", row=row)
             write_to_gsheet(
                 row=row, spreadsheet_id=os.getenv("REGISTRATIONS_SPREADSHEET")
             )
             initialize_firebase_for_a_user(data)
+            write_to_csv(data, filename="CyberRegistrations.csv", row=row)
             print(f"Added {row}")
             session["name"] = data["name"]
             session["regno"] = data["regno"]
@@ -119,23 +119,21 @@ def login():
 
     if request.method == "POST":
         regno = request.form["regno"].upper()
-        password = hasher(request.form["password"])
-        print(regno + " - " + password, "tried to login")
-        if check_password(regno, password):
-            session["name"] = get_team_details(regno)["name"]
-            session["password"] = get_team_details(regno)["password"]
-            session["regno"] = regno
-            session["uniqid"] = get_team_details(regno)["uniqid"]
-            session["current_question"] = get_team_details(regno)
-            ["current_question"]
+        hashed_pw = hasher(request.form["password"])
+        print(regno + " - " + hashed_pw, "tried to login")
+        if check_password(regno, hashed_pw):
+            d = get_team_dict(regno)
+            session["name"] = d["name"]
+            session["password"] = d["password"]
+            session["regno"] = d["regno"]
+            session["uniqid"] = d["uniqid"]
+            session["current_question"] = d["current_question"]
             print(session["current_question"])
             return redirect("/play")
 
         else:
-            return render_template(
-                "login.html", success=False, message="Invalid Credentials"
-            )
-    return render_template("login.html", success=None)
+            return render_template("login.html", show_message="Invalid Credentials")
+    return render_template("login.html", show_message="")
 
 
 @app.route("/play", methods=["POST", "GET"])
@@ -143,16 +141,12 @@ def play():
     # if not logged in, redirect to login page
     if "regno" not in session:
         return render_template("login.html", success=None)
-
     # if already logged in, redirect to play page
     # Display the current question
     current_question = get_current_question(session["regno"])
     # print(current_question)
     question = get_question_for_a_question_number(current_question)
     # print(question)
-
-    count = 1
-
     if request.method == "POST":
         answer = request.form["answer"]
         if answer == get_answer_for_a_question(current_question):
@@ -196,8 +190,6 @@ def leaderboard():
 def logout():
     session.clear()
     return redirect("/login")
-
-
 
 
 load_dotenv("crypto.env")
