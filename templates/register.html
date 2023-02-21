@@ -17,6 +17,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+    <script>
+        /*to prevent Firefox FOUC, this must be here*/
+        let FF_FOUC_FIX;
+    </script>
 </head>
 
 <body>
@@ -251,21 +255,19 @@
                         <button type="submit" class="glow-on-hover">Submit</button>
                     </form>
                     {% endif %}
-                    {% if filled %}
+                    {% if show_message %}
                     <div class="match1">
                         <div class="show-message">
                             <p class="show-message-p">{{ show_message }}</p>
-                            <a class="btn-submit" id="goback" href="/"><button>Go Back</button></a>
-                            <a class="btn-submit" href="{{ url_for('login') }}"><button>Login</button></a>
+                            <a href="/"><button>Go Back</button></a>
+                            <a href="{{ url_for('login') }}"><button>Login</button></a>
                         </div>
                     </div>
                 </div>
                 {% endif %}
             </div>
+        </main>
     </div>
-    </div>
-    </main>
-
     <script type="module" src="/static/js/animate.js">
     </script>
 

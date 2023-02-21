@@ -3,14 +3,42 @@ from random import choice as randchoice
 from random import shuffle as randshuffle
 
 
-def get_answer_for_a_question(question_number: int | str = 1) -> str:
-    return (get_questions()[int(question_number)])["ans"]
+def answerify(given_answer: str) -> str:
+    return given_answer.strip().replace(" ", "").casefold()
 
 
 def get_questions() -> list:
     with open("./questions.json", "r") as f:
-        question_dict = json.load(f)
-    return question_dict
+        question_list = json.load(f)
+    return question_list
+
+
+class Question:
+    def __init__(self, question_num_in_list: int):
+        question = get_questions()[int(question_num_in_list) - 1]
+        self.type = question["type"]
+        self.question_text = ""
+        self.image_url = ""
+        if self.type == "image":
+            self.image_url = question["text"]
+        elif self.type == "text":
+            self.question_text = question["text"]
+        self.answer = answerify(question["answer"])
+        self.difficulty = question["difficulty"]
+
+    def check_answer(self, given_answer: str) -> bool:
+        if answerify(given_answer) == self.answer:
+            return True
+        return False
+
+
+def get_question_object(question_number: int) -> Question:
+    return Question(question_number)
+
+
+def get_answer_for_a_question(question_number: int | str = 1) -> str:
+    q = Question(question_number)
+    return q.answer
 
 
 def get_specific_difficulty_questions(question_dict: dict, difficuty: str) -> list[int]:
@@ -22,20 +50,12 @@ def get_specific_difficulty_questions(question_dict: dict, difficuty: str) -> li
     return to_return if to_return else []
 
 
-def get_current_question(regno: str):
+def get_personal_current_question_number(regno: str):
     from csv_functions import get_team_details
+    from firebase_functions import get_team_details
 
-    return int(get_team_details(regno)["current_question"])
-
-
-def update_current_question(regno: str, current_question: int | str):
-    # Todo fix this function
-    from csv_functions import write_to_csv
-
-    # from firebase_functions import update_current_question_in_firebase
-
-    write_to_csv(regno, "current_question", current_question)
-    # update_current_question_in_firebase(regno, current_question)
+    current_question = get_team_details(regno, "current_question")
+    return int(current_question)
 
 
 def str_sequence_to_int_list(sequence: str) -> list[int]:
@@ -65,5 +85,6 @@ def generate_sequence_for_a_team() -> list[int]:
     return sequence
 
 
-def get_question_for_a_question_number(question_number: int | str) -> str:
-    return (get_questions()[int(question_number)])["ques"]
+def get_nth_question_for_a_player(n: int, sequence: str):
+    return
+    player_sequence = str_sequence_to_int_list(sequence)

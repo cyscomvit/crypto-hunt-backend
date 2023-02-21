@@ -1,4 +1,3 @@
-import csv
 import os
 
 from questions import (
@@ -28,7 +27,7 @@ from miscellaneous import *
 from questions import (
     generate_sequence_for_a_team,
     get_answer_for_a_question,
-    get_current_question,
+    get_personal_current_question_number,
     get_question_for_a_question_number,
 )
 from spreadsheet import write_to_gsheet
@@ -58,6 +57,7 @@ def index_page():
 
 @app.route("/register", methods=["POST", "GET"])
 def register():
+    message = ""
     if request.method == "POST":
         data = dict()
         data["name"] = request.form["name"]
@@ -74,11 +74,10 @@ def register():
         print(data["current_question"])
         print(data["regno"] + " - " + data["name"], "tried to register")
         if check_user_exists_in_csv(data["regno"], data["uniqid"]):
-            filled = True
             message = "You have already registered!"
+            if not get_team_dict(data["regno"]):
+                message = "Error in registering"
         else:
-            filled = True
-            message = "You have successfully registered"
             row = [
                 data["name"],
                 data["regno"],
@@ -100,14 +99,14 @@ def register():
             session["regno"] = data["regno"]
             session["uniqid"] = data["uniqid"]
             session["current_question"] = data["current_question"]
+            message = "You have successfully registered"
         return render_template(
             "register.html",
             yet_to_register=False,
             show_message=message,
-            filled=filled,
         )
     # 👇 Requested /register in a get method, return normally
-    return render_template("register.html", yet_to_register=True, filled=False)
+    return render_template("register.html", yet_to_register=True, show_message=message)
 
 
 @app.route("/login", methods=["POST", "GET"])
@@ -124,11 +123,12 @@ def login():
         if check_password(regno, hashed_pw):
             d = get_team_dict(regno)
             session["name"] = d["name"]
-            session["password"] = d["password"]
             session["regno"] = d["regno"]
             session["uniqid"] = d["uniqid"]
             session["current_question"] = d["current_question"]
-            print(session["current_question"])
+            print(
+                f"User {session['regno']} is on hist {session['current_question']} question"
+            )
             return redirect("/play")
 
         else:
@@ -138,45 +138,38 @@ def login():
 
 @app.route("/play", methods=["POST", "GET"])
 def play():
+    show_name = session["name"] if "name" in session else session["regno"]
+
+    attempted, correct_answer = False, False
+    answer_messages = ["Correct Answer", "Wrong Answer"]
+
     # if not logged in, redirect to login page
     if "regno" not in session:
-        return render_template("login.html", success=None)
-    # if already logged in, redirect to play page
-    # Display the current question
-    current_question = get_current_question(session["regno"])
-    # print(current_question)
-    question = get_question_for_a_question_number(current_question)
-    # print(question)
+        print("Not logged in and tried to access play")
+        return redirect("/logout")
+
+    # Post method, meaning sent answer, didn't request page. Just calculates whether right answer or not and returns the page.
     if request.method == "POST":
+        attempted = True
         answer = request.form["answer"]
         if answer == get_answer_for_a_question(current_question):
-            print(f"{session['regno']} - {session['name']} answered correctly")
-            count += 1
+            correct_answer = True
             update_current_question(session["regno"], current_question)
             question = get_question_for_a_question_number(current_question)
-            render_template(
-                "play.html",
-                success=True,
-                name=session["name"],
-                question=question,
-                questionNumber=count,
-            )
         else:
-            print(f"{session['regno']} - {session['name']} answered incorrectly")
-            render_template(
-                "play.html",
-                success=False,
-                name=session["name"],
-                question=question,
-                questionNumber=count,
-            )
+            correct_answer = False
+        print(f"{session['regno']} - {session['name']} answered {correct_answer}")
+        return redirect("/play")
 
+    # if already logged in, redirect to play page
+    # Display the current question
+    question = get_personal_current_question_number(current_question)
+    current_question = get_current_question(session["regno"])
     return render_template(
         "play.html",
         success=True,
-        name=session["name"],
+        show_name=show_name,
         question=question,
-        questionNumber=count,
     )
 
 

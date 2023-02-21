@@ -180,7 +180,7 @@ button {
     color: white;
 }
 
-.glow-on-hover:hover {
+/* .glow-on-hover:hover {
     background: #6aec71;
     position: absolute;
     top: -2px;
@@ -203,7 +203,7 @@ button {
 
 .glow-on-hover:hover:before {
     opacity: 1;
-}
+} */
 
 /* Footer */
 footer {
