@@ -19,6 +19,7 @@ from questions import (
     generate_sequence_for_a_team,
     get_answer_for_a_question,
     get_personal_current_question,
+    perhaps_completed
 )
 from spreadsheet import write_to_gsheet
 
@@ -81,8 +82,9 @@ def register():
 
         data["uniqid"] = generate_uuid()
         team_sequence = generate_sequence_for_a_team()
-        data["current_question"] = int(team_sequence[0])
+        data["current_question"] = 1
         data["sequence"] = str(team_sequence)
+        data["completed"] = False
         print(data["current_question"])
         print(data["regno"] + " - " + data["name"], "tried to register")
         if check_user_exists_in_csv(data["regno"], data["uniqid"]):
@@ -159,30 +161,39 @@ def play():
 
     attempted_correct = [False, False]
 
+    if perhaps_completed(session['regno'],session['current_question']):
+        return redirect("/completed")
+
     ques = get_personal_current_question(regno=session["regno"])
 
     # Post method, meaning sent answer, didn't request page. Just calculates whether right answer or not and returns the page.
     if request.method == "POST":
         attempted_correct[0] = True
         submitted_answer = request.form["answer"]
+
+        log_and_print(
+            f"{session['regno']} - {session['name']} answered {submitted_answer} for {ques.no} in list, {session['current_question']} in his sequence"
+        )
+
         if submitted_answer == ques.answer:
             attempted_correct[1] = True
             session["current_question"] = str(int(session["current_question"]) + 1)
             update_team_details(
-                session["regno"], "current_question", session["current_question"]
+                session["regno"], "current_question", int(session["current_question"])
             )
             ques = get_personal_current_question(regno=session["regno"])
         else:
             attempted_correct[1] = False
-        print(f"{session['regno']} - {session['name']} answered {submitted_answer}")
-        print(ques.no)
+        if perhaps_completed(session['regno'],session['current_question']):
+            return redirect("/completed")
+
         return render_template(
             "play.html",
             show_name=show_name,
             attempted_correct=attempted_correct,
             q_type=ques.type,
             question=ques.text,
-            ques_no=str(ques.no),
+            ques_no=str(session["current_question"]),
         )
 
     # if already logged in, redirect to play page
@@ -193,8 +204,16 @@ def play():
         attempted_correct=attempted_correct,
         q_type=ques.type,
         question=ques.text,
-        ques_no=ques.no,
+        ques_no=str(session["current_question"]),
     )
+
+
+@app.route("/completed", methods=["GET"])
+def completed():
+    if "current_question" in session:
+        if perhaps_completed(session['regno'],session['current_question']):
+            return render_template("completed.html")
+    return redirect("/play")
 
 
 @app.route("/leaderboard")

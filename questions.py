@@ -1,8 +1,10 @@
 import json
 from random import choice as randchoice
 from random import shuffle as randshuffle
+from icecream import ic
 
 from miscellaneous import hasher
+from firebase_functions import get_team_details
 
 
 def answerify(given_answer: str) -> str:
@@ -15,8 +17,28 @@ def get_questions() -> list:
     return question_list
 
 
+TOTAL_Q = len(get_questions())
+
+
+def perhaps_completed(regno: str, current_ques: int):
+    current_ques = int(current_ques)
+    ic(
+        current_ques,
+        len((str_sequence_to_int_list(get_team_details(regno, "sequence")))),
+        TOTAL_Q,
+    )
+    if current_ques > len(
+        str_sequence_to_int_list(get_team_details(regno, "sequence"))
+    ):
+        return True
+    if current_ques > TOTAL_Q:
+        return True
+    return False
+
+
 class Question:
     def __init__(self, question_num_in_list: int):
+        print(len(get_questions()), question_num_in_list)
         question = get_questions()[int(question_num_in_list) - 1]
         print(question)
         self.type = question["type"]
@@ -47,12 +69,10 @@ def get_answer_for_a_question(question_number: int | str = 1) -> str:
 
 
 def get_personal_current_question(regno: str) -> Question:
-    from firebase_functions import get_team_details
-
-    current_question = get_team_details(regno, "current_question")
+    current_question = int(get_team_details(regno, "current_question"))
     sequence = get_team_details(regno, "sequence")
-
     player_sequence = str_sequence_to_int_list(sequence)
+    ic(player_sequence, current_question)
     return get_question_object(player_sequence[current_question - 1])
 
 
