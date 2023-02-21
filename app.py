@@ -9,6 +9,7 @@ from firebase_functions import (
     check_password,
     get_ordered_list_of_users_based_on_points,
     get_team_details,
+    update_team_details,
     get_team_dict,
     initialize_firebase_for_a_user,
 )
@@ -158,21 +159,31 @@ def play():
 
     attempted_correct = [False, False]
 
-    current_question = session["current_question"]
     ques = get_personal_current_question(regno=session["regno"])
 
     # Post method, meaning sent answer, didn't request page. Just calculates whether right answer or not and returns the page.
     if request.method == "POST":
         attempted_correct[0] = True
         submitted_answer = request.form["answer"]
-        if submitted_answer == get_answer_for_a_question(current_question):
+        if submitted_answer == ques.answer:
             attempted_correct[1] = True
-            # update_current_question(session["regno"], current_question)
-            # question = get_question_for_a_question_number(current_question)
+            session["current_question"] = str(int(session["current_question"]) + 1)
+            update_team_details(
+                session["regno"], "current_question", session["current_question"]
+            )
+            ques = get_personal_current_question(regno=session["regno"])
         else:
             attempted_correct[1] = False
         print(f"{session['regno']} - {session['name']} answered {submitted_answer}")
-        return redirect("/play")
+        print(ques.no)
+        return render_template(
+            "play.html",
+            show_name=show_name,
+            attempted_correct=attempted_correct,
+            q_type=ques.type,
+            question=ques.text,
+            ques_no=str(ques.no),
+        )
 
     # if already logged in, redirect to play page
     # Display the current question

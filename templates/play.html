@@ -45,15 +45,26 @@
                 {% if attempted_correct[1] %}
                 <p style="color: green;">Your answer is correct!</p>
                 {% elif not attempted_correct[1] %}
-                <p style="color: green;">Your answer is correct!</p>
+                <p style="color: red;">Your answer is wrong!</p>
                 {% endif %}
                 {% endif %}
             </div>
             <div class="question-holder">
-                {% if q_type=="i" %}
-                <img class="question-imageg" src="{{ question  }}">
-                {% elif q_type=="t" %}
-                <img class="question-imageg" src="{{ question  }}">
+                <div>
+                    <!-- Question Number -->
+                    {% if ques_no %}
+                    <p>Q.No {{ ques_no }}</p>
+                    {% endif %}
+                </div>
+                <div>
+                    <!-- Question Text -->
+                    {% if q_type=="i" %}
+                    <img class="question-image" src="{{  question  }}">
+                    {% elif q_type=="t" %}
+                    <p class="question-text">
+                        {{ question }}
+                    </p>
+                </div>
                 {% endif %}
             </div>
             <form method="post" action="/play">

@@ -66,13 +66,13 @@ def get_team_details(regno: str, field_name: str, default_if_not_exist=None):
             return selector[field_name]
         else:
             if default_if_not_exist:
-                update_team_detail(regno, field_name, default_if_not_exist)
+                update_team_details(regno, field_name, default_if_not_exist)
             return None
     else:
         return None
 
 
-def update_team_detail(regno: str, field_name: str, field_value):
+def update_team_details(regno: str, field_name: str, field_value):
     regno = regno.casefold()
     reg_number_ref = users_ref.child(regno)
     selector = reg_number_ref.get()
@@ -96,7 +96,7 @@ def get_current_question_from_firebase(regno: str) -> int:
 
 
 def update_current_question_to_firebase(regno: str, question_number: int) -> None:
-    update_team_detail(regno, "current_question", int(question_number))
+    update_team_details(regno, "current_question", int(question_number))
 
 
 def get_points(regno: str) -> int:

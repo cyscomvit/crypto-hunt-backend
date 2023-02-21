@@ -53,7 +53,6 @@ def get_personal_current_question(regno: str) -> Question:
     sequence = get_team_details(regno, "sequence")
 
     player_sequence = str_sequence_to_int_list(sequence)
-    
     return get_question_object(player_sequence[current_question - 1])
 
 
