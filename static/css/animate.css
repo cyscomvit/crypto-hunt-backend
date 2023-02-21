@@ -3,9 +3,10 @@ body {
 }
 
 .container {
-    width: 100vw;
-    height: 100vh;
+    width: 95vw;
+    height: 95vh;
     background-color: #181818;
+    border-radius: 5%;
     position: absolute;
     overflow: hidden;
     display: flex;
@@ -52,8 +53,6 @@ section span:hover {
     transition: 0s;
 }
 
-
-
 .hover {
     background: gray;
     transition: 0s;
@@ -69,7 +68,7 @@ section span:hover {
     padding-top: 10px;
     padding-left: 10px;
     padding: 0.8rem;
-    width: 5%;
+    width: 10vw;
     z-index: 2;
     object-fit: scale-down;
 }
@@ -103,10 +102,10 @@ section span:hover {
     width: 48rem;
     z-index: 1;
     overflow: hidden;
-    box-shadow: inset -5px -5px rgba(0, 0, 0, 0.5);
+    box-shadow: inset -5px -5px #00000080;
     border-radius: 15px;
     /* background: rgba(255, 255, 255, 0.08); */
-    background-color: rgba(150, 148, 75, 0.5);
+    background-color: #4b968480;
     backdrop-filter: blur(5px);
 }
 
@@ -136,13 +135,14 @@ form {
     z-index: 1;
     overflow: hidden;
     border-radius: 15px;
+    width: 60vw;
 }
 .form-input {
     margin: 1rem 1rem;
     padding: 0.8rem;
     outline: none;
     border-radius: 10px;
-    width: 30rem;
+    width: 60%;
 }
 
 .form-title {
@@ -156,8 +156,29 @@ form {
     .form-title {
         font-size: 0.7rem;
     }
-}
 
+    .logo {
+        width: 10vw;
+        z-index: 2;
+    }
+
+    form {
+        width: 95%;
+    }
+
+    .form-input {
+        width: 90%;
+    }
+    section span {
+        position: relative;
+        display: block;
+        width: calc(7vw + 0px);
+        height: calc(7vw + 2px);
+        background: #181818;
+        z-index: 1;
+        transition: 1.5s;
+    }
+}
 
 button {
     width: 150px;
@@ -213,23 +234,6 @@ footer {
     background-color: #000;
     z-index: 2;
     position: absolute;
-}
-
-@media only screen and (max-width: 1680px) {
-    .logo {
-        width: 7%;
-        z-index: 2;
-    }
-
-    section span {
-        position: relative;
-        display: block;
-        width: calc(7vw + 0px);
-        height: calc(7vw + 2px);
-        background: #181818;
-        z-index: 1;
-        transition: 1.5s;
-    }
 }
 
 @media only screen and (max-width: 1300px) {

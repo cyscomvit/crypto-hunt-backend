@@ -1,34 +1,23 @@
+import logging
 import os
 
-from questions import (
-    get_answer_for_a_question,
-    get_current_question,
-    update_current_question,
-)
-
-import logging
 from dotenv import load_dotenv
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, redirect, render_template, request, session
 
-from flask_session import Session
-from csv_functions import (
-    check_user_exists_in_csv,
-    header,
-    write_to_csv,
-)
+from csv_functions import check_user_exists_in_csv, header, write_to_csv
 from firebase_functions import (
-    initialize_firebase_for_a_user,
-    get_ordered_list_of_users_based_on_points,
     check_password,
+    get_ordered_list_of_users_based_on_points,
     get_team_details,
     get_team_dict,
+    initialize_firebase_for_a_user,
 )
+from flask_session import Session
 from miscellaneous import *
 from questions import (
     generate_sequence_for_a_team,
     get_answer_for_a_question,
-    get_personal_current_question_number,
-    get_question_for_a_question_number,
+    get_personal_current_question,
 )
 from spreadsheet import write_to_gsheet
 
@@ -138,21 +127,24 @@ def login():
 
 @app.route("/play", methods=["POST", "GET"])
 def play():
-    show_name = session["name"] if "name" in session else session["regno"]
-
-    attempted, correct_answer = False, False
-    answer_messages = ["Correct Answer", "Wrong Answer"]
-
     # if not logged in, redirect to login page
     if "regno" not in session:
         print("Not logged in and tried to access play")
         return redirect("/logout")
 
+    show_name = session["name"] if "name" in session else session["regno"]
+
+    attempted, correct_answer = False, False
+    answer_messages = ["Correct Answer", "Wrong Answer"]
+
+    current_question = session["current_question"]
+    ques = get_personal_current_question(regno=session["regno"])
+
     # Post method, meaning sent answer, didn't request page. Just calculates whether right answer or not and returns the page.
     if request.method == "POST":
         attempted = True
-        answer = request.form["answer"]
-        if answer == get_answer_for_a_question(current_question):
+        submitted_answer = request.form["answer"]
+        if submitted_answer == get_answer_for_a_question(current_question):
             correct_answer = True
             update_current_question(session["regno"], current_question)
             question = get_question_for_a_question_number(current_question)
@@ -163,13 +155,12 @@ def play():
 
     # if already logged in, redirect to play page
     # Display the current question
-    question = get_personal_current_question_number(current_question)
-    current_question = get_current_question(session["regno"])
     return render_template(
         "play.html",
-        success=True,
         show_name=show_name,
-        question=question,
+        attempted=attempted,
+        q_type=ques.type,
+        question=ques.text,
     )
 
 

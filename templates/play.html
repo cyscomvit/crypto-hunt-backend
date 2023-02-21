@@ -11,28 +11,11 @@
     <link rel="icon" href="/static/images/logo.png">
     <link rel="shortcut icon" href="/static/images/logo.png" type="image/x-icon" />
 
-    <link href="/static/css/common.css" rel="stylesheet">
+    <link href="/static/css/play.css" rel="stylesheet">
     <link href="/static/css/animate.css" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <style>
-        .show-message {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .show-message-p {
-            padding: 1.5rem;
-            background-color: rgb(161, 25, 25);
-            color: white;
-
-            width: max-content;
-        }
-    </style>
 
     <script>
         /*to prevent Firefox FOUC, this must be here*/
@@ -58,7 +41,7 @@
         </header>
         <div>
             <h1 class="form-title">Play - CyberOdessy</h1>
-            {% if show_message %}
+            {% if attempted %}
             <div class="show-message">
                 <p class="show-message-p">{{ show_message }}</p>
             </div>

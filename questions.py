@@ -2,6 +2,8 @@ import json
 from random import choice as randchoice
 from random import shuffle as randshuffle
 
+from miscellaneous import hasher
+
 
 def answerify(given_answer: str) -> str:
     return given_answer.strip().replace(" ", "").casefold()
@@ -16,15 +18,18 @@ def get_questions() -> list:
 class Question:
     def __init__(self, question_num_in_list: int):
         question = get_questions()[int(question_num_in_list) - 1]
+        print(question)
         self.type = question["type"]
         self.question_text = ""
         self.image_url = ""
-        if self.type == "image":
+        if self.type == "i":
             self.image_url = question["text"]
-        elif self.type == "text":
-            self.question_text = question["text"]
-        self.answer = answerify(question["answer"])
+        elif self.type == "t":
+            self.text = question["text"]
+        self.answer = answerify(question["ans"])
+        self.smol_ans = hasher(self.answer)
         self.difficulty = question["difficulty"]
+        self.number = question["no"]
 
     def check_answer(self, given_answer: str) -> bool:
         if answerify(given_answer) == self.answer:
@@ -41,21 +46,18 @@ def get_answer_for_a_question(question_number: int | str = 1) -> str:
     return q.answer
 
 
-def get_specific_difficulty_questions(question_dict: dict, difficuty: str) -> list[int]:
-    to_return = [
-        i
-        for i in range(len(question_dict))
-        if question_dict[i]["difficulty"].casefold() == difficuty.casefold()
-    ]
-    return to_return if to_return else []
-
-
-def get_personal_current_question_number(regno: str):
-    from csv_functions import get_team_details
+def get_personal_current_question(regno: str) -> Question:
     from firebase_functions import get_team_details
 
     current_question = get_team_details(regno, "current_question")
-    return int(current_question)
+    sequence = get_team_details(regno, "sequence")
+
+    player_sequence = str_sequence_to_int_list(sequence)
+    
+    return get_question_object(player_sequence[current_question - 1])
+
+
+# -----------------------------------------------------------------
 
 
 def str_sequence_to_int_list(sequence: str) -> list[int]:
@@ -63,6 +65,15 @@ def str_sequence_to_int_list(sequence: str) -> list[int]:
     for i in range(len(to_return)):
         to_return[i] = int(to_return[i].strip().strip("'"))
     return to_return
+
+
+def get_specific_difficulty_questions(question_dict: dict, difficuty: str) -> list[int]:
+    to_return = [
+        i
+        for i in range(len(question_dict))
+        if question_dict[i]["difficulty"].casefold() == difficuty.casefold()
+    ]
+    return to_return if to_return else []
 
 
 def generate_sequence_for_a_team() -> list[int]:
@@ -85,6 +96,4 @@ def generate_sequence_for_a_team() -> list[int]:
     return sequence
 
 
-def get_nth_question_for_a_player(n: int, sequence: str):
-    return
-    player_sequence = str_sequence_to_int_list(sequence)
+# -----------------------------------------------------------------

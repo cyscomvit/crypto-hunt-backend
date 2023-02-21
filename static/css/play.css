@@ -1,0 +1,21 @@
+* {
+    color: white;
+}
+body {
+    font-family: "Roboto", sans-serif;
+    background-color: #181818;
+}
+.show-message {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.show-message-p {
+    padding: 1.5rem;
+    background-color: rgb(161, 25, 25);
+    color: white;
+
+    width: max-content;
+}
