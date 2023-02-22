@@ -3,7 +3,7 @@ from os import getenv
 from os.path import dirname
 
 gc = gspread.service_account(
-    filename=dirname(__file__) + "./credentials-spreadsheet.json"
+    filename=dirname(__file__) + "/" + "./credentials-spreadsheet.json"
 )
 
 

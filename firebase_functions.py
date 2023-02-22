@@ -10,7 +10,9 @@ config = {
 }
 
 # Initialize Firebase app
-cred = credentials.Certificate(dirname(__file__) + "./credentials-cyber-odyssey.json")
+cred = credentials.Certificate(
+    dirname(__file__) + "/" + "./credentials-cyber-odyssey.json"
+)
 initialize_app(
     cred,
     {
@@ -125,9 +127,9 @@ def get_ordered_list_of_users_based_on_points() -> list[tuple[str, str]]:
     users_and_points = {
         all_users_ref[user]["name"]
         + " - "
-        + user.upper(): str(all_users_ref[user]["points"])
+        + user.upper(): all_users_ref[user]["current_question"]
         for user in all_users_ref
-        if user and "points" in all_users_ref[user] and "name" in all_users_ref[user]
+        if user and "current_question" in all_users_ref[user] and "name" in all_users_ref[user]
     }
     sorted_users_and_points = sorted(
         users_and_points.items(), key=lambda x: x[1], reverse=True

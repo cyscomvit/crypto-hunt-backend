@@ -2,24 +2,26 @@ import logging
 import os
 
 from dotenv import load_dotenv
-from flask import Flask, redirect, render_template, request, session
+from flask import Flask, redirect, render_template, request, session, jsonify
+from icecream import ic
 
 from csv_functions import check_user_exists_in_csv, header, write_to_csv
 from firebase_functions import (
     check_password,
     get_ordered_list_of_users_based_on_points,
-    get_team_details,
     update_team_details,
     get_team_dict,
+    get_team_details,
     initialize_firebase_for_a_user,
 )
 from flask_session import Session
 from miscellaneous import *
 from questions import (
     generate_sequence_for_a_team,
-    get_answer_for_a_question,
     get_personal_current_question,
-    perhaps_completed
+    perhaps_completed,
+    answerify,
+    hint_used,
 )
 from spreadsheet import write_to_gsheet
 
@@ -84,8 +86,8 @@ def register():
         team_sequence = generate_sequence_for_a_team()
         data["current_question"] = 1
         data["sequence"] = str(team_sequence)
-        data["completed"] = False
-        print(data["current_question"])
+        data["hint_used"] = False
+        data["hints_used"] = "[0]"
         print(data["regno"] + " - " + data["name"], "tried to register")
         if check_user_exists_in_csv(data["regno"], data["uniqid"]):
             message = "You have already registered!"
@@ -132,9 +134,12 @@ def login():
 
     if request.method == "POST":
         regno = request.form["regno"].upper()
+        if "@" in regno:
+            return render_template("login.html", show_message="Invalid Credentials")
         hashed_pw = hasher(request.form["password"])
         print(regno + " - " + hashed_pw, "tried to login")
         if check_password(regno, hashed_pw):
+            session.clear()
             d = get_team_dict(regno)
             session["name"] = d["name"]
             session["regno"] = d["regno"]
@@ -161,7 +166,7 @@ def play():
 
     attempted_correct = [False, False]
 
-    if perhaps_completed(session['regno'],session['current_question']):
+    if perhaps_completed(session["regno"], session["current_question"]):
         return redirect("/completed")
 
     ques = get_personal_current_question(regno=session["regno"])
@@ -170,21 +175,25 @@ def play():
     if request.method == "POST":
         attempted_correct[0] = True
         submitted_answer = request.form["answer"]
-
+        submitted_key = request.form["key"]
         log_and_print(
-            f"{session['regno']} - {session['name']} answered {submitted_answer} for {ques.no} in list, {session['current_question']} in his sequence"
+            f"{session['regno']} - {session['name']} answered {submitted_answer} / {submitted_key}for {ques.no} in list, {session['current_question']} in his sequence"
         )
 
-        if submitted_answer == ques.answer:
+        if answerify(submitted_answer) == ques.answer and answerify(
+            submitted_key
+        ) == answerify(ques.key):
             attempted_correct[1] = True
-            session["current_question"] = str(int(session["current_question"]) + 1)
-            update_team_details(
-                session["regno"], "current_question", int(session["current_question"])
-            )
+            cq = int(get_team_details(session["regno"], "current_question"))
+            cq += 1
+            session["current_question"] = str(cq)
+            update_team_details(session["regno"], "current_question", cq)
             ques = get_personal_current_question(regno=session["regno"])
+            update_team_details(session["regno"], "hint_used", "False")
+            submitted_key=""
         else:
             attempted_correct[1] = False
-        if perhaps_completed(session['regno'],session['current_question']):
+        if perhaps_completed(session["regno"], session["current_question"]):
             return redirect("/completed")
 
         return render_template(
@@ -193,25 +202,43 @@ def play():
             attempted_correct=attempted_correct,
             q_type=ques.type,
             question=ques.text,
-            ques_no=str(session["current_question"]),
+            location=ques.location,
+            last_key=submitted_key,
         )
 
     # if already logged in, redirect to play page
     # Display the current question
+    update_team_details(session["regno"], "hint_used", "False")
     return render_template(
         "play.html",
         show_name=show_name,
         attempted_correct=attempted_correct,
         q_type=ques.type,
         question=ques.text,
-        ques_no=str(session["current_question"]),
+        location=ques.location,
+        last_key="",
     )
+
+
+@app.route("/hints", methods=["POST"])
+def hints():
+    # if not logged in, redirect to login page
+    if "regno" not in session:
+        print("Not logged in and tried to access play")
+        return redirect("/logout")
+    ques = get_personal_current_question(regno=session["regno"])
+    hint = ques.hint
+    hint_used(session["regno"])
+    log_and_print(f"{session['regno']} used a hint for {ques.no}")
+    if hint:
+        return jsonify({"hint": str(hint)})
+    return jsonify({"hint": "Hint not found/Does not exist for this question"})
 
 
 @app.route("/completed", methods=["GET"])
 def completed():
     if "current_question" in session:
-        if perhaps_completed(session['regno'],session['current_question']):
+        if perhaps_completed(session["regno"], session["current_question"]):
             return render_template("completed.html")
     return redirect("/play")
 

@@ -35,13 +35,14 @@
         }
 
         @media screen and (min-width: 1000px) {
-        .form-input {
-            width: 40%;
-        }
+            .form-input {
+                width: 40%;
+            }
 
-        form {
-            width: 40vw;
-        }}
+            form {
+                width: 40vw;
+            }
+        }
     </style>
     <script>
         /*to prevent Firefox FOUC, this must be here*/
@@ -271,7 +272,13 @@
                     </form>
                 </div>
                 {% if show_message %}
-                <a href="/"><button>Go Back</button></a>
+
+                <div class="match1">
+                    <div class="show-message">
+                        <a href="/"><button>Go Back</button></a>
+                        <a href="{{ url_for('register') }}"><button>Register</button></a>
+                    </div>
+                </div>
                 {% endif %}
             </div>
     </div>

@@ -16,9 +16,21 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         /*to prevent Firefox FOUC, this must be here*/
         let FF_FOUC_FIX;
+        $(document).ready(function () {
+            $("#show-hints-btn").click(function () {
+                $.ajax({
+                    url: "/hints",
+                    type: "POST",
+                    success: function (data) {
+                        $("#hint-div").text(data.hint);
+                    }
+                });
+            });
+        });
     </script>
 </head>
 
@@ -27,51 +39,82 @@
     <main>
         <header>
             <nav>
-                <h1 class="event_title">Cyber Odyssey</h1>
-                {% if show_name %}
-                <div class="person-name">
-                    <p>{{ show_name }}</p>
-                </div>
-                {% endif %}
                 <div>
-                    <a href="/logout"><button>Logout</button></a>
+                    <h1 class="event_title">Cyber Odyssey</h1>
+                </div>
+                <div class="name-and-logout">
+                    {% if show_name %}
+                    <div class="person-name">
+                        <p>{{ show_name }}</p>
+                    </div>
+                    {% endif %}
+                    <div>
+                        <div style="display: flex; flex-direction: row;margin-bottom: 1rem;">
+                            <a href="/leaderboard"><button>Leaderboard</button></a>
+                            <a href="/logout"><button>Logout</button></a>
+                        </div>
+                    </div>
                 </div>
             </nav>
         </header>
         <section class="play-section">
-            <h1 class="form-title">Play - Cyber Odyssey</h1>
             <div>
                 {% if attempted_correct[0] %}
                 {% if attempted_correct[1] %}
-                <p style="color: green;">Your answer is correct!</p>
+                <p style="color: green;">Your answer was correct!</p>
                 {% elif not attempted_correct[1] %}
-                <p style="color: red;">Your answer is wrong!</p>
+                <p style="color: red;">Your answer/key is wrong!</p>
                 {% endif %}
                 {% endif %}
             </div>
             <div class="question-holder">
                 <div>
-                    <!-- Question Number -->
-                    {% if ques_no %}
-                    <p>Q.No {{ ques_no }}</p>
-                    {% endif %}
-                </div>
-                <div>
                     <!-- Question Text -->
                     {% if q_type=="i" %}
-                    <img class="question-image" src="{{  question  }}">
+                    <img class="question-image" src="/static/images/questions/{{  question  }}">
                     {% elif q_type=="t" %}
                     <p class="question-text">
-                        {{ question }}
+                        {{ question|safe }}
                     </p>
                 </div>
                 {% endif %}
             </div>
             <form method="post" action="/play">
-                <label for="answer">Your answer</label>
-                <input class="form-input" type="text" id="answer" name="answer" required />
-                <input class="button" type="submit" value="Submit" />
+                <div>
+                    <label for="answer">Ans:</label>
+                    <input class="form-input" placeholder="Your Answer" type="text" id="answer" name="answer"
+                        required />
+                </div>
+                <div>
+                    <label for="key">Key:</label>
+                    <input class="form-input" value="{{  last_key  }}" placeholder="Location Key" type="text" id="key" name="key" required />
+                </div>
+                <div class="location">
+                    <p>Key will be given by the CYSCOM Member at this location:</p>
+                    {% if location %}
+                    <p><b style="color:aquamarine">{{ location }}</b></p>
+                    {% else %}
+                    <p>Error fetching location!</p>
+                    {% endif %}
+                </div>
+                <div id="hint-div"></div>
+                <input class="button" placeholder="Your Answer" type="submit" value="Submit" />
             </form>
+            <button id="show-hints-btn">Show Hints</button>
+        </section>
+        <section class="faq">
+            <ul>
+                <li>Using hints imposes a penalty of 50% for a question, if you use it for the question. (Even if hints are absent!!)</li>
+                <li>The format for every answer is small case and without space. For example, if the answer is "221
+                    Baker
+                    Street.", you should enter "221bakerstreet".</li>
+                <li>The most suitable answer is chosen if multiple answers exist. No acronyms are used. </li>
+                <li>You can long press/right click on an image and then view it in a different tab to zoom it in.</li>
+                <li>The descision of the CYSCOM team w.r.t answers for every question is final in case of a discrepancy.
+                </li>
+                <li>Please drop a message in the Whatsapp Group if the location to get the location key from is not
+                    displayed</li>
+            </ul>
         </section>
     </main>
 </body>

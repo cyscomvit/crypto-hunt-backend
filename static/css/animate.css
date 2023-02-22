@@ -107,6 +107,7 @@ section span:hover {
     /* background: rgba(255, 255, 255, 0.08); */
     background-color: #4b968480;
     backdrop-filter: blur(5px);
+    overflow-y: auto;
 }
 
 .buttons {

@@ -44,19 +44,19 @@ def get_base_value(time_left: int = 0):
 def get_time_differentiator(time_left: int = 0) -> int:
     # returns time_diff past that base value
     time_differentiator = 60
-    if time_left >= 3600:
+    if time_left > 3600:
         time_differentiator = 200
-    elif time_left >= 2700:
+    elif time_left > 2700:
         time_differentiator = 120
-    elif time_left >= 1800:
+    elif time_left > 1800:
         time_differentiator = 90
-    elif time_left >= 900:
+    elif time_left > 900:
         time_differentiator = 60
-    elif time_left >= 600:
+    elif time_left > 600:
         time_differentiator = 50
-    elif time_left >= 300:
+    elif time_left > 300:
         time_differentiator = 40
-    elif time_left >= 100:
+    elif time_left > 100:
         time_differentiator = 30
     elif 100 > time_left >= 0:
         time_differentiator = 3
@@ -64,29 +64,27 @@ def get_time_differentiator(time_left: int = 0) -> int:
 
 
 def calculate_points_for_answering(
-    question_level: str, hints_used: int, time_left: int = 0
+    question_level: str, hints_used: bool, time_left: int = 0
 ):
     if not time_left:
         time_left = calculate_current_time_left()
     base_value = get_base_value(time_left)
     time_differentiator = get_time_differentiator(time_left)
-    if question_level == "easy":
+    if question_level in ("easy","start"):
         multiplier = 50
-    elif question_level == "medium":
+    elif question_level in ("medium","ctfe"):
         multiplier = 75
-    elif question_level == "hard":
+    elif question_level in ("hard","ctfm"):
         multiplier = 120
     else:
         multiplier = 0
     divider = 1
-    if hints_used == 1:
-        divider = 1.3
-    elif hints_used >= 2:
-        divider = 1.6
+    if hints_used:
+        divider = 1.5
     ratio = multiplier / divider
     points_without_time = int(ratio + 1)
     points_with_time = int(
-        abs(((((ratio * (time_left - base_value)) / time_differentiator))) + 1)
+        abs(((((ratio * (time_left % base_value)) / time_differentiator))) + 1)
     )
 
     from icecream import ic
