@@ -1,0 +1,362 @@
+[
+    {
+        "no": 1,
+        "type": "i",
+        "text": "1-79d25484-0e5e-4d04-a580-087358f26919.png",
+        "ans": "ransomware",
+        "hint": "form of malware designed to encrypt files",
+        "difficulty": "easy",
+        "key": "links-sclera",
+        "location": "Outside Gymkhana"
+    },
+    {
+        "no": 2,
+        "type": "i",
+        "text": "2-d906c5bb-2f20-4bb7-a7a4-09389e6899b2.png",
+        "hint": "cyber-security expert tries to find/exploit security issues in computers/servers",
+        "ans": "pentesting",
+        "difficulty": "easy",
+        "key": "silver-blazon",
+        "location": "VMart"
+    },
+    {
+        "no": 3,
+        "type": "i",
+        "text": "3-fdff2f4f-07f6-4075-868c-5753d1ecb491.png",
+        "hint": "ethical security hacker",
+        "ans": "whitehathacker",
+        "difficulty": "start",
+        "key": "daddy-silken",
+        "location": "Outside MG Auditorium"
+    },
+    {
+        "no": 4,
+        "type": "i",
+        "text": "4-4b74cf8c-0e89-4607-a433-405333445746.png",
+        "hint": "unethical security hacker",
+        "ans": "blackhathacker",
+        "difficulty": "easy",
+        "key": "scabbard-explain",
+        "location": "AB1 Amphitheatre"
+    },
+    {
+        "no": 5,
+        "type": "i",
+        "text": "5-c3a1898c-e2e8-4ec1-9932-31336003999a.png",
+        "ans": "rootkit",
+        "hint": "malware that gives hackers control over some other device",
+        "difficulty": "easy",
+        "key": "hurdle-animated",
+        "location": "North Square"
+    },
+    {
+        "no": 6,
+        "type": "t",
+        "text": "You have been scammed. Is there a possibility that you went, down to the river in recent days?",
+        "ans": "phishing",
+        "hint": "attempts to get your personal info unethically/illegally",
+        "difficulty": "start",
+        "key": "daddy-silken",
+        "location": "Outside MG Auditorium"
+    },
+    {
+        "no": 7,
+        "type": "i",
+        "text": "6-18d9e318-fa68-45c1-a8dd-49d8ecb3d9cb.png",
+        "ans": "clickjacking",
+        "hint": "trick a user into clicking something",
+        "difficulty": "start",
+        "key": "daddy-silken",
+        "location": "Outside MG Auditorium"
+    },
+    {
+        "no": 8,
+        "type": "i",
+        "text": "7-8d33ff7e-2568-4f0e-b450-bea58bc4da54.png",
+        "ans": "crosssitescripting",
+        "hint": "injection of bad scripts",
+        "difficulty": "easy",
+        "key": "scabbard-explain",
+        "location": "AB1 Amphitheatre"
+    },
+    {
+        "no": 9,
+        "type": "i",
+        "text": "8-ec0c51b5-aaa6-4b49-a612-b31a436d3f93.png",
+        "ans": "steganography",
+        "hint": "hiding secret in a ordinary file, text or image",
+        "difficulty": "easy",
+        "key": "chest-chaplet",
+        "location": "In front of Library entrance"
+    },
+    {
+        "no": 10,
+        "type": "i",
+        "text": "9-be6b9d22-1ddb-4f2a-bf9f-2538fa856390.png",
+        "ans": "eviltwinattack",
+        "hint": "Trick users into connecting to a fake WiFi",
+        "difficulty": "easy",
+        "key": "links-sclera",
+        "location": "Outside Gymkhana"
+    },
+    {
+        "no": 11,
+        "type": "t",
+        "text": "<section class=\"crossword\">\r\n    <h1>Crossword<\/h1>\r\n    <table>\r\n        <tr>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\">1<\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n        <\/tr>\r\n\r\n        <tr>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"tofill\">\r\n                <input type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n        <\/tr>\r\n\r\n        <tr>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\">1<\/td>\r\n            <td class=\"tofill\">\r\n                <input type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"tofill highlight\">\r\n                <input class=\"highlight\" type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"tofill\">\r\n                <input type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"tofill\">\r\n                <input type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"tofill\">\r\n                <input type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"tofill highlight\">\r\n                <input class=\"highlight\" type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"tofill\">\r\n                <input type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"empty\"><\/td>\r\n        <\/tr>\r\n\r\n        <tr>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"tofill\">\r\n                <input type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\">2<\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n        <\/tr>\r\n\r\n        <tr>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"tofill\">\r\n                <input type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"tofill highlight\">\r\n                <input class=\"highlight\" type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n        <\/tr>\r\n\r\n        <tr>\r\n            <td class=\"empty\">2<\/td>\r\n            <td class=\"tofill\">\r\n                <input type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"tofill\">\r\n                <input type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"tofill\">\r\n                <input type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"tofill\">\r\n                <input type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"tofill\">\r\n                <input type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n        <\/tr>\r\n\r\n        <tr>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"tofill\">\r\n                <input type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"tofill\">\r\n                <input type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n        <\/tr>\r\n\r\n        <tr>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"tofill\">\r\n                <input type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"tofill\">\r\n                <input type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n        <\/tr>\r\n\r\n        <tr>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"tofill\">\r\n                <input type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n        <\/tr>\r\n\r\n        <tr>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\">3<\/td>\r\n            <td class=\"tofill\">\r\n                <input type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"tofill\">\r\n                <input type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"tofill highlight\">\r\n                <input class=\"highlight\" type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"tofill\">\r\n                <input type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"tofill\">\r\n                <input type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"tofill\">\r\n                <input type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"tofill\">\r\n                <input type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n        <\/tr>\r\n\r\n        <tr>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"tofill\">\r\n                <input type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n        <\/tr>\r\n\r\n        <tr>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"tofill highlight\">\r\n                <input class=\"highlight\" type=\"text\" maxlength=\"1\" \/>\r\n            <\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n            <td class=\"empty\"><\/td>\r\n        <\/tr>\r\n    <\/table>\r\n    <p>Across:<\/p>\r\n    <p>1.Eight legs<\/p>\r\n    <p>2.Biggest and not even a fish!<\/p>\r\n    <p>3.Was seen riding the East Australian Current in Finding Nemo - plural noun of that animal<\/p>\r\n    \r\n    <p>Down:<\/p>\r\n    <p>1. Smarter than humans and not even a fish!<\/p>\r\n    <p>2. Male carries young in its pouch,not the female<\/p>\r\n    <p>\r\n        Letters in the blue boxes make up a word related to cyber security, and\r\n        that is the answert that has to be submitted\r\n    <\/p>\r\n<\/section>",
+        "ans": "secure",
+        "hint": "No hints! Please solve the crossword",
+        "difficulty": "medium",
+        "key": "chest-chaplet",
+        "location": "In front of Library entrance"
+    },
+    {
+        "no": 12,
+        "type": "t",
+        "text": "<pre>Used by Google,Instagram and Fortnite,\r\nIt helps to keep your account's security tight;\r\nThe level of security is made double,\r\nCausing the hackers more trouble!</pre>",
+        "ans": "twofactorauthentication",
+        "hint": "Form of authentication used after giving a password",
+        "difficulty": "medium",
+        "key": "skurry-unmoor",
+        "location": "Delta block"
+    },
+    {
+        "no": 13,
+        "type": "t",
+        "text": "No room, no building exists without me. Humans can't stay near me when I am hot, while your computers act just the opposite. Who am I?",
+        "ans": "firewall",
+        "hint": "Form of authentication used after giving a password",
+        "difficulty": "medium",
+        "key": "daddy-silken",
+        "location": "Outside MG Auditorium"
+    },
+    {
+        "no": 14,
+        "type": "i",
+        "text": "10-5e877959-0771-4110-b414-f75950a0430c.png",
+        "ans": "zeroday",
+        "hint": "recently discovered security vulnerabilities are classified as this",
+        "difficulty": "medium",
+        "key": "doeth-extremum",
+        "location": "Clock court/tower"
+    },
+    {
+        "no": 15,
+        "type": "t",
+        "text": "<p>People are all just people, right? When it gets down to it, everyone's the same. They love something. They want something. They fear something. Specifics help, but specifics don't change the way that everyone is vulnerable. It just changes the way that we access those  _ u _ _ e _ a _ i _ i _ i e _ .\" </p><p>Fill in the blank, and submit the whole word as the answer</p>",
+        "ans": "vulnerabilities",
+        "hint": "issues that weaken security",
+        "difficulty": "medium",
+        "key": "chest-chaplet",
+        "location": "In front of Library entrance"
+    },
+    {
+        "no": 16,
+        "type": "t",
+        "text": "I follow you everywhere you go, Through your devices, I know. I'm a shadow in the night, Making you feel like you're in sight. What am I?",
+        "ans": "cyberstalking",
+        "hint": "Following someone online",
+        "difficulty": "medium",
+        "key": "links-sclera",
+        "location": "Outside Gymkhana"
+    },
+    {
+        "no": 17,
+        "type": "t",
+        "text": "Not a fish in the sea\r\nSniffing packets with glee\r\nSeeing network secrets clear\r\nAh, the joy of tech!",
+        "ans": "wireshark",
+        "hint": "<a href=\"https://i.imgur.com/yVicWtf.png\">View image</a>",
+        "difficulty": "medium",
+        "key": "silver-blazon",
+        "location": "VMart"
+    },
+    {
+        "no": 18,
+        "type": "t",
+        "text": "<section>\r\n    <h1>Sudoku</h1>\r\n    <p>Put the answer row first, column second</p>\r\n    <p>The letters you used to fill the row come first, then the letters you used to fill column (No spaces, all small\r\n        case).</p>\r\n    <table>\r\n        <tr>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td id=\"v1\" class=\"given\">L</td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n        </tr>\r\n\r\n        <tr>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td>\r\n                <input class=\"sudo-box\" id=\"v2\" type=\"text\" maxlength=\"1\" style=\"text-transform: uppercase\" class=\"input\" value=\"\" />\r\n            </td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n        </tr>\r\n\r\n        <tr>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td id=\"v3\" class=\"given\">N</td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n        </tr>\r\n\r\n        <tr>\r\n            <td id=\"h1\" class=\"given\">M</td>\r\n            <td>\r\n                <input  class=\"sudo-box\" id=\"h2\" type=\"text\" maxlength=\"1\" style=\"text-transform: uppercase\" class=\"input\" value=\"\" />\r\n            </td>\r\n            <td>\r\n                <input  class=\"sudo-box\"  id=\"h3\" type=\"text\" maxlength=\"1\" style=\"text-transform: uppercase\" class=\"input\" value=\"\" />\r\n            </td>\r\n            <td>\r\n                <input class=\"sudo-box\"  id=\"h4\" type=\"text\" maxlength=\"1\" style=\"text-transform: uppercase\" class=\"input\" value=\"\" />\r\n            </td>\r\n            <td id=\"h5\" class=\"given\">S</td>\r\n            <td id=\"v4h6\" class=\"given\">P</td>\r\n            <td>\r\n                <input class=\"sudo-box\"  id=\"h7\" type=\"text\" maxlength=\"1\" style=\"text-transform: uppercase\" class=\"input\" value=\"\" />\r\n            </td>\r\n            <td>\r\n                <input  class=\"sudo-box\" id=\"h8\" type=\"text\" maxlength=\"1\" style=\"text-transform: uppercase\" class=\"input\" value=\"\" />\r\n            </td>\r\n            <td>\r\n                <input  class=\"sudo-box\" id=\"h9\" type=\"text\" maxlength=\"1\" style=\"text-transform: uppercase\" class=\"input\" value=\"\" />\r\n            </td>\r\n            <td>\r\n                <input class=\"sudo-box\"  id=\"h10\" type=\"text\" maxlength=\"1\" style=\"text-transform: uppercase\" class=\"input\" value=\"\" />\r\n            </td>\r\n        </tr>\r\n\r\n        <tr>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td>\r\n                <input  class=\"sudo-box\" id=\"v5\" type=\"text\" maxlength=\"1\" style=\"text-transform: uppercase\" class=\"input\" value=\"\" />\r\n            </td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n        </tr>\r\n\r\n        <tr>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td>\r\n                <input  class=\"sudo-box\" id=\"v6\" type=\"text\" maxlength=\"1\" style=\"text-transform: uppercase\" class=\"input\" value=\"\" />\r\n            </td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n        </tr>\r\n\r\n        <tr>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td>\r\n                <input  class=\"sudo-box\" id=\"v7\" type=\"text\" maxlength=\"1\" style=\"text-transform: uppercase\" class=\"input\" value=\"\" />\r\n            </td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n        </tr>\r\n    </table>\r\n    <p>ACROSS(10 LETTERS):A Penetration Testing Security Tool</p>\r\n    <p>It was formerly 'facebook' (4 letters) + Rhymes with a software tool that takes advantage of a vulnerability in a\r\n        computer system for malicious purposes such as installing malware.(6 letters)\r\n    </p>\r\n\r\n    <p>DOWN(7): Automated Linux Post-Exploitation Audit Script.\r\n    </p>\r\n    <p>A serial network protocol used for communication between components in vehicles.(3 letters) + A task environment\r\n        specification that includes performance measure in AI.(4 letters)</p>\r\n</section>",
+        "ans": "etaloitieas",
+        "hint": "No hints!",
+        "difficulty": "medium",
+        "key": "skurry-unmoor",
+        "location": "Delta block"
+    },
+    {
+        "no": 19,
+        "type": "t",
+        "text": "<pre>I'm like Cotton candy\r\nI sail but not the sea\r\nI have no wings, but I can fly.\r\nI have no eyes, but I will cry.<pre>\r\n<p> The answer is _____ security <p>",
+        "ans": "cloud",
+        "hint": "Firebase, AWS",
+        "difficulty": "medium",
+        "key": "doeth-extremum",
+        "location": "Clock court/tower"
+    },
+    {
+        "no": 20,
+        "type": "t",
+        "text": "<p>(Astrides - rearrange these letters to get the correct word) recovery and (\"act of being busy\" - find a word for this) continuity.</p><p> Answer is a 5 word sentence, including the recovery and continuity words.</p>",
+        "ans": "disasterrecoveryandbusinesscontinuity",
+        "hint": "practices for people, technology and process used to help an organization continue or recover business operations in a disaster",
+        "difficulty": "medium",
+        "key": "scabbard-explain",
+        "location": "AB1 Amphitheatre"
+    },
+    {
+        "no": 21,
+        "type": "t",
+        "text": "gtilida 4&6",
+        "ans": "digitalforensics",
+        "hint": "acquiring and analysing data stored electronically",
+        "difficulty": "medium",
+        "key": "chest-chaplet",
+        "location": "In front of Library entrance"
+    },
+    {
+        "no": 22,
+        "type": "t",
+        "text": "cuerse (jacket for your feet)8 yearl ",
+        "ans": "securesocketlayer",
+        "hint": "Rearrange first and last word",
+        "difficulty": "medium",
+        "key": "skurry-unmoor",
+        "location": "Delta block"
+    },
+    {
+        "no": 23,
+        "type": "i",
+        "text": "11-964521ea-550b-49f7-9191-44078bd80065.png",
+        "ans": "diffiehellmanexchange",
+        "hint": "Securely exchanging private public keys",
+        "difficulty": "medium",
+        "key": "hurdle-animated",
+        "location": "North Square"
+    },
+    {
+        "no": 24,
+        "type": "t",
+        "text": "<h1>Sudoku</h1>\r\n<div class=\"center\" style=\"display: flex; text-align: center;\">\r\n    <table>\r\n        <tr>\r\n            <td>3</td>\r\n            <td>\r\n                <input class=\"sudo-box\" maxlength=\"1\" id=\"2row3col\" type=\"number\" name=\"value\" value=\"\" />\r\n            </td>\r\n            <td>5</td>\r\n            <td>6</td>\r\n            <td>\r\n                <input class=\"sudo-box\" maxlength=\"1\" id=\"3row6col\" type=\"number\" name=\"value\" value=\"\" />\r\n            </td>\r\n            <td>2</td>\r\n        </tr>\r\n\r\n        <tr>\r\n            <td>6</td>\r\n            <td>1</td>\r\n            <td>2</td>\r\n            <td>3</td>\r\n            <td>4</td>\r\n            <td>5</td>\r\n        </tr>\r\n\r\n        <tr>\r\n            <td>2</td>\r\n            <td>\r\n                <input class=\"sudo-box\" maxlength=\"1\" id=\"5row2col\" name=\"value\" value=\"\" />\r\n            </td>\r\n            <td>1</td>\r\n            <td>4</td>\r\n            <td>3</td>\r\n            <td>\r\n                <input class=\"sudo-box\" maxlength=\"1\" id=\"5row4col\" type=\"number\" name=\"value\" value=\"\" />\r\n            </td>\r\n        </tr>\r\n\r\n        <tr>\r\n            <td>4</td>\r\n            <td>3</td>\r\n            <td>6</td>\r\n            <td>2</td>\r\n            <td>5</td>\r\n            <td>1</td>\r\n        </tr>\r\n        <tr>\r\n            <td>1</td>\r\n            <td>2</td>\r\n            <td>3</td>\r\n            <td>5</td>\r\n            <td>6</td>\r\n            <td>4</td>\r\n        </tr>\r\n        <tr>\r\n            <td>5</td>\r\n            <td>\r\n                <input class=\"sudo-box\" maxlength=\"1\" id=\"5row6col\" type=\"number\" name=\"value\" value=\"\" />\r\n            </td>\r\n            <td>4</td>\r\n            <td>1</td>\r\n            <td>\r\n                <input class=\"sudo-box\" maxlength=\"1\" id=\"6row5col\" type=\"number\" name=\"value\" value=\"\" />\r\n            </td>\r\n            <td>\r\n                <input class=\"sudo-box\" maxlength=\"1\" id=\"6row6col\" type=\"number\" name=\"value\" value=\"\" />\r\n            </td>\r\n        </tr>\r\n    </table>\r\n</div>\r\n<section style=\"color: white\">\r\n    <p>Once you solve the sudoku,, you'll get some letters below. Shuffle them to get a cybersecurity term,\r\n        and\r\n        submit that as answer!</p>\r\n    <p id=\"scrambled\"></p>\r\n</section>\r\n<script>     function check_values_and_update() {\r\n        console.log(\"asd\")\r\n        value1 = document.getElementById(\"2row3col\").value; value2 = document.getElementById(\"3row6col\").value; value3 = document.getElementById(\"5row2col\").value; value4 = document.getElementById(\"5row4col\").value; value5 = document.getElementById(\"5row6col\").value; value6 = document.getElementById(\"6row5col\"); value7 == document.getElementById(\"6row6col\")\r\n        if (value1 == \"4\" && value2 == \"1\" && value3 == \"5\" && value4 == \"6\" && value5 == \"6\" && value6 == \"2\" && value7 == \"3\") { document.getElementById(\"scrambled\").innerText = \"Key : 1-D,2-G,3-I,4-N,5-O,6-X\"; } else { document.getElementById(\"scrambled\").innerHTML = \"\"; }\r\n    }\r\n    setInterval(check_values_and_update, 500);\r\n</script>",
+        "ans": "doxxing",
+        "hint": "maliciously reveal someone's private info without their permission (verb)",
+        "difficulty": "hard",
+        "key": "doeth-extremum",
+        "location": "Clock court/tower"
+    },
+    {
+        "no": 25,
+        "type": "t",
+        "text": "<h1>Sudoku</h1>\r\n<div class=\"center\" style=\"display: flex; text-align: center;\">\r\n    <table>\r\n        <tr>\r\n            <td>3</td>\r\n            <td>4</td>\r\n            <td>6</td>\r\n            <td>5</td>\r\n            <td>1</td>\r\n            <td>2</td>\r\n        </tr>\r\n\r\n        <tr>\r\n            <td>1</td>\r\n            <td>5</td>\r\n            <td>\r\n                <input class=\"sudo-box\" maxlength=\"1\" id=\"2row3col\" type=\"number\" name=\"value\" value=\"\" />\r\n            </td>\r\n            <td>3</td>\r\n            <td>4</td>\r\n            <td>6</td>\r\n        </tr>\r\n\r\n        <tr>\r\n            <td>2</td>\r\n            <td>6</td>\r\n            <td>4</td>\r\n            <td>1</td>\r\n            <td>3</td>\r\n            <td>\r\n                <input class=\"sudo-box\" maxlength=\"1\" id=\"3row6col\" type=\"number\" name=\"value\" value=\"\" />\r\n            </td>\r\n        </tr>\r\n\r\n        <tr>\r\n            <td>5</td>\r\n            <td>3</td>\r\n            <td>1</td>\r\n            <td>2</td>\r\n            <td>6</td>\r\n            <td>4</td>\r\n        </tr>\r\n\r\n        <tr>\r\n            <td>4</td>\r\n            <td>\r\n                <input class=\"sudo-box\" maxlength=\"1\" id=\"5row2col\" name=\"value\" value=\"\" />\r\n            </td>\r\n            <td>5</td>\r\n            <td>\r\n                <input class=\"sudo-box\" maxlength=\"1\" id=\"5row4col\" type=\"number\" name=\"value\" value=\"\" />\r\n            </td>\r\n            <td>2</td>\r\n            <td>\r\n                <input class=\"sudo-box\" maxlength=\"1\" id=\"5row6col\" type=\"number\" name=\"value\" value=\"\" />\r\n            </td>\r\n        </tr>\r\n\r\n        <tr>\r\n            <td>6</td>\r\n            <td>2</td>\r\n            <td>3</td>\r\n            <td>4</td>\r\n            <td>5</td>\r\n            <td>1</td>\r\n        </tr>\r\n    </table>\r\n</div>\r\n<section style=\"color: white\">\r\n    <p>Once you solve the sudoku,, you'll get some letters below. Shuffle them to get a cybersecurity term,\r\n        and\r\n        submit that as answer!</p>\r\n    <p id=\"scrambled\"></p>\r\n</section>\r\n<script>     function check_values_and_update() {\r\n        value1 = document.getElementById(\"2row3col\").value; value2 = document.getElementById(\"3row6col\").value; value3 = document.getElementById(\"5row2col\").value; value4 = document.getElementById(\"5row4col\").value; value5 = document.getElementById(\"5row6col\").value;\r\n        if (value1 == \"2\" && value2 == \"5\" && value3 == \"1\" && value4 == \"6\" && value5 == \"3\") { document.getElementById(\"scrambled\").innerHTML = \"Key : 1-S 2-V 3-U 6-R 5-I\"; } else { document.getElementById(\"scrambled\").innerText = \"\"; }\r\n    }\r\n    setInterval(check_values_and_update, 500);\r\n</script>",
+        "ans": "virus",
+        "hint": "Program that copies itself and infects",
+        "difficulty": "hard",
+        "key": "silver-blazon",
+        "location": "VMart"
+    },
+    {
+        "no": 26,
+        "type": "t",
+        "text": "<h1>Sudoku</h1>\r\n<div class=\"center\" style=\"display: flex; text-align: center;\">\r\n    <table>\r\n        <tr>\r\n            <td>\r\n                <input class=\"sudo-box\" maxlength=\"1\" id=\"2row3col\" type=\"number\" name=\"value\" value=\"\" />\r\n            </td>\r\n            <td>2</td>\r\n            <td>3</td>\r\n            <td>4</td>\r\n            <td>5</td>\r\n            <td>6</td>\r\n        </tr>\r\n\r\n        <tr>\r\n            <td>4</td>\r\n            <td>5</td>\r\n            <td>6</td>\r\n            <td>1</td>\r\n            <td>\r\n                <input class=\"sudo-box\" maxlength=\"1\" id=\"3row6col\" type=\"number\" name=\"value\" value=\"\" />\r\n            </td>\r\n            <td>3</td>\r\n        </tr>\r\n\r\n        <tr>\r\n            <td>2</td>\r\n            <td>3</td>\r\n            <td>\r\n                <input class=\"sudo-box\" maxlength=\"1\" id=\"5row2col\" name=\"value\" value=\"\" />\r\n            </td>\r\n            <td>5</td>\r\n            <td>6</td>\r\n            <td>1</td>\r\n        </tr>\r\n\r\n        <tr>\r\n            <td>5</td>\r\n            <td>6</td>\r\n            <td>\r\n                <input class=\"sudo-box\" maxlength=\"1\" id=\"5row4col\" type=\"number\" name=\"value\" value=\"\" />\r\n            </td>\r\n            <td>3</td>\r\n            <td>4</td>\r\n            <td>2</td>\r\n        </tr>\r\n\r\n        <tr>\r\n            <td>3</td>\r\n            <td>\r\n                <input class=\"sudo-box\" maxlength=\"1\" id=\"5row6col\" type=\"number\" name=\"value\" value=\"\" />\r\n            </td>\r\n            <td>2</td>\r\n            <td>6</td>\r\n            <td>1</td>\r\n            <td>\r\n                <input class=\"sudo-box\" maxlength=\"1\" id=\"6row6col\" type=\"number\" name=\"value\" value=\"\" />\r\n            </td>\r\n        </tr>\r\n        <tr>\r\n            <td>6</td>\r\n            <td>1</td>\r\n            <td>5</td>\r\n            <td>2</td>\r\n            <td>3</td>\r\n            <td>4</td>\r\n        </tr>\r\n    </table>\r\n</div>\r\n<section style=\"color: white\">\r\n    <p>Once you solve the sudoku,, you'll get some letters below. Shuffle them to get a cybersecurity term,\r\n        and\r\n        submit that as answer!</p>\r\n    <p id=\"scrambled\"></p>\r\n</section>\r\n<script>     function check_values_and_update() {\r\n        console.log(\"asd\")\r\n        value1 = document.getElementById(\"2row3col\").value; value2 = document.getElementById(\"3row6col\").value; value3 = document.getElementById(\"5row2col\").value; value4 = document.getElementById(\"5row4col\").value; value5 = document.getElementById(\"5row6col\").value; value6 = document.getElementById(\"6row6col\");\r\n        if (value1 == \"1\" && value2 == \"2\" && value3 == \"4\" && value4 == \"3\" && value5 == \"4\" && value6 == \"5\") { document.getElementById(\"scrambled\").innerText = \"Key : 1-N,2-B,3-O,4-T,5-E\"; } else { document.getElementById(\"scrambled\").innerHTML = \"\"; }\r\n    }\r\n    setInterval(check_values_and_update, 500);\r\n</script>",
+        "ans": "botnet",
+        "hint": "many computers controlled by one entity",
+        "difficulty": "hard",
+        "key": "links-sclera",
+        "location": "og"
+    },
+    {
+        "no": 27,
+        "type": "t",
+        "text": "Ever played Bayblade or watched it on television as a kid? Most people liked the protagonist's blue coloured Bayblade with a horse printed on it. But what does a toy have to do with something like cybersecurity?",
+        "ans": "spyware",
+        "hint": "Snooping on someone using software",
+        "difficulty": "hard",
+        "key": "hurdle-animated",
+        "location": "North Square"
+    },
+    {
+        "no": 28,
+        "type": "t",
+        "text": "crossword burpsuite",
+        "ans": "sqlinjection",
+        "hint": "<a href=\"https://i.imgur.com/s3a5pFb.png\">View image</a>",
+        "difficulty": "hard",
+        "key": "skurry-unmoor",
+        "location": "Delta block"
+    },
+    {
+        "no": 29,
+        "type": "t",
+        "text": "<section>\r\n    <h1>Sudoku</h1>\r\n    <p>Put the answer row first, column second</p>\r\n    <p>The letters you used to fill the row come first, then the letters you used to fill column (No spaces, all small\r\n        case).</p>\r\n    <table>\r\n        <tr>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td id=\"v1\" class=\"given\">C</td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n        </tr>\r\n\r\n        <tr>\r\n            <td id=\"v1\" class=\"given\">B</td>\r\n            <td>\r\n                <input class=\"sudo-box\" id=\"v2\" type=\"text\" maxlength=\"1\" style=\"text-transform: uppercase\"\r\n                    class=\"input\" value=\"\" />\r\n            </td>\r\n            <td>\r\n                <input class=\"sudo-box\" id=\"v2\" type=\"text\" maxlength=\"1\" style=\"text-transform: uppercase\"\r\n                    class=\"input\" value=\"\" />\r\n            </td>\r\n            <td>\r\n                <input class=\"sudo-box\" id=\"v2\" type=\"text\" maxlength=\"1\" style=\"text-transform: uppercase\"\r\n                    class=\"input\" value=\"\" />\r\n            </td>\r\n\r\n            <td id=\"v3\" class=\"given\">S</td>\r\n            <td id=\"v3\" class=\"given\">U</td>\r\n            <td>\r\n                <input class=\"sudo-box\" id=\"v2\" type=\"text\" maxlength=\"1\" style=\"text-transform: uppercase\"\r\n                    class=\"input\" value=\"\" />\r\n            </td>\r\n            <td>\r\n                <input class=\"sudo-box\" id=\"v2\" type=\"text\" maxlength=\"1\" style=\"text-transform: uppercase\"\r\n                    class=\"input\" value=\"\" />\r\n            </td>\r\n            <td>\r\n                <input class=\"sudo-box\" id=\"v2\" type=\"text\" maxlength=\"1\" style=\"text-transform: uppercase\"\r\n                    class=\"input\" value=\"\" />\r\n            </td>\r\n        </tr>\r\n\r\n        <tr>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td>\r\n                <input class=\"sudo-box\" id=\"v2\" type=\"text\" maxlength=\"1\" style=\"text-transform: uppercase\"\r\n                    class=\"input\" value=\"\" />\r\n            </td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n        </tr>\r\n        <tr>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td>\r\n                <input class=\"sudo-box\" id=\"v2\" type=\"text\" maxlength=\"1\" style=\"text-transform: uppercase\"\r\n                    class=\"input\" value=\"\" />\r\n            </td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n            <td class=\"empty\"></td>\r\n        </tr>\r\n    </table>\r\n    <p>ACROSS(10 Letters)</p>\r\n    <p>Security tool that makes hacking sound like a digestive issue\r\n    </p>\r\n\r\n    <p>DOWN (4 Letters)</p>\r\n    <p>Hairstyle of a command line data transfer utility.</p>\r\n    <p>Infinitesimal circulation of a vector field</p>\r\n</section>",
+        "ans": "urpiterl",
+        "hint": "None!",
+        "difficulty": "hard",
+        "key": "silver-blazon",
+        "location": "VMart"
+    },
+    {
+        "no": 30,
+        "type": "t",
+        "text": "<section>\r\n        <p>\r\n            My friend recently learned how to create websites and was extremely eager to do so. Little does he know,\r\n            however, that when he asked me for a review, I actually disguised a secret message. Please assist my pal in\r\n            finding it.\r\n        </p>\r\n        <a href=\"https://cyscomvit.com/ctf-1/\" target=\"_blank\">Website</a>\r\n    </section>",
+        "hint": "It's not just in one place",
+        "ans": "CCO{tH1nK_8eF0rE_Y0u_Cl1cK,_5T4y_fR0m_ThE_TR1Ck}",
+        "difficulty": "ctfe",
+        "key": "bash-bursar",
+        "location": "AB1-205B (Use lab computer)"
+    },
+    {
+        "no": 31,
+        "type": "t",
+        "text": "<section>\r\n        <p>\r\n            The guy who created this Image messed up his name , can you tell what name did he use?\r\n        </p>\r\n        <a href=\"https://drive.google.com/file/d/1yffuWicMI0HgMW3DpyAuK9vD2nReokJr/view?usp=sharing\"\r\n            target=\"_blank\">Image file</a>\r\n    </section>",
+        "hint": "Did you really look at the image?",
+        "ans": "CCO{RuN_t4k3_tH3_3x1t}",
+        "difficulty": "ctfe",
+        "key": "bash-bursar",
+        "location": "AB1-205B (Use lab computer)"
+    },
+    {
+        "no": 32,
+        "type": "t",
+        "text": "<section> <p> Wanted to pass messages to my friends without anyone finding out. Can you though? </p> <a href=\"https://drive.google.com/file/d/1dAKxborFIVvTcZYGYxkuIA-d0hiQIi1Y/view?usp=sharing\" target=\"_blank\">Image file</a> </section>",
+        "hint": "The creator of the challenge really likes cats",
+        "ans": "CCO{d4mn_Y0u_f0n2_1t}",
+        "difficulty": "ctfe",
+        "key": "bash-bursar",
+        "location": "AB1-205B (Use lab computer)"
+    },
+    {
+        "no": 33,
+        "type": "t",
+        "text": "<section>\r\n        <p>\r\n            A person wanted to store their passwords in plaintext and obfuscate it. Show them how it is a bad idea to\r\n            store in plaintext by solving\u00A0this\u00A0ctf </p>\r\n        <a href=\"https://drive.google.com/file/d/14sqDSNyholZOZRtOpUwgPGo19bM8sbAd/view?usp=sharing\"\r\n            target=\"_blank\">Text file</a>\r\n    </section>",
+        "hint": "Search for The Valleys and you will find the Treasure",
+        "ans": "CCO{GR3P_Us3r}",
+        "difficulty": "ctfe",
+        "key": "bash-bursar",
+        "location": "AB1-205B (Use lab computer)"
+    },
+    {
+        "no": 34,
+        "type": "t",
+        "text": "<section>\r\n        <p>\r\n            A hacker friend of mine sent me something on my birthday, but i can't figure out what it means.\r\n            Can you?\r\n            571b4ba928ae62e103b54727721ebe56\r\n\r\n            *Enter whatever you find inside CCO{placholder} before submitting</p>\r\n    </section>",
+        "hint": "#cracking up",
+        "ans": "CCO{congrats}",
+        "difficulty": "ctfe",
+        "key": "bash-bursar",
+        "location": "AB1-205B (Use lab computer)"
+    },
+    {
+        "no": 35,
+        "type": "t",
+        "text": "<section>\r\n        <p>\r\n            Passwords should be protected and having a secret language that could only be read by you would make it\r\n            easier. So i tried to make my own, but messed up the code. Could you find the password?\r\n            6,6,18,27,23,11,12,22,12,22,4,9,15,4,10,28\r\n        </p>\r\n        <a href=\"https://drive.google.com/file/d/1_D4R67c2ngi0BudSsrVLmF8Jn7wxl5S3/view?usp=sharing\"\r\n            target=\"_blank\">Encoder program</a>\r\n    </section>",
+        "ans": "cco{thisisaflag}",
+        "hint": "Do the romans really know anything about ciphers?",
+        "difficulty": "ctfm",
+        "key": "bash-bursar",
+        "location": "AB1-205B (Use lab computer)"
+    },
+    {
+        "no": 36,
+        "type": "t",
+        "text": "<section>\r\n        <p>\r\n            While going through an old computer, i found a password protected zip file along with a random set of words.\r\n            I wonder whats inside it.\r\n        </p>\r\n        <a href=\"https://drive.google.com/file/d/1iaMRAxSMlDDgokiliUBrsqVt9LGnAmhf/view?usp=sharing\" target=\"_blank\">Zip\r\n            file</a>\r\n        <br>\r\n        <a href=\"https://drive.google.com/file/d/1tUhmZLKJmqW7dPmicI_aaHM-ozATxpcx/view?usp=sharing\"\r\n            target=\"_blank\">Wordlist</a>\r\n    </section>",
+        "hint": "Are you really gonna try to manually test each password?",
+        "ans": "CCO{Lets_gooooo}",
+        "difficulty": "ctfm",
+        "key": "bash-bursar",
+        "location": "AB1-205B (Use lab computer)"
+    }
+]

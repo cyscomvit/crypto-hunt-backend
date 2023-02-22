@@ -8,6 +8,8 @@ Pipfile.lock
 *.csv
 *.json
 
+!questions.json
+
 __pycache__/
 .mypy_cache/
 .vscode/
