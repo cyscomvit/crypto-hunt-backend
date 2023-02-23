@@ -2,26 +2,27 @@ import logging
 import os
 
 from dotenv import load_dotenv
-from flask import Flask, redirect, render_template, request, session, jsonify
+from flask import Flask, jsonify, redirect, render_template, request, session
+from flask_session import Session
 from icecream import ic
+from markupsafe import Markup, escape
 
 from csv_functions import check_user_exists_in_csv, header, write_to_csv
 from firebase_functions import (
     check_password,
     get_ordered_list_of_users_based_on_points,
-    update_team_details,
-    get_team_dict,
     get_team_details,
+    get_team_dict,
     initialize_firebase_for_a_user,
+    update_team_details,
 )
-from flask_session import Session
 from miscellaneous import *
 from questions import (
+    answerify,
     generate_sequence_for_a_team,
     get_personal_current_question,
-    perhaps_completed,
-    answerify,
     hint_used,
+    perhaps_completed,
 )
 from spreadsheet import write_to_gsheet
 
@@ -61,6 +62,10 @@ def log_and_print(msg: str, level: str = "warn") -> None:
         logger.info(msg)
     else:
         logger.debug(msg)
+
+
+def has_event_ended() -> bool:
+    return os.getenv("EVENT_ENDED").casefold() in ("true", "yes", "y")
 
 
 @app.route("/", methods=["GET"])
@@ -131,7 +136,8 @@ def login():
 
     # if "regno" in session:
     #     return render_template("play.html", success=True, name=session["name"])
-
+    if has_event_ended:
+        return redirect("/leaderboard")
     if request.method == "POST":
         regno = request.form["regno"].upper()
         if "@" in regno:
@@ -161,6 +167,9 @@ def play():
     if "regno" not in session:
         print("Not logged in and tried to access play")
         return redirect("/logout")
+
+    if has_event_ended:
+        return redirect("/leaderboard")
 
     show_name = session["name"] if "name" in session else session["regno"]
 
@@ -255,7 +264,7 @@ def logout():
     return redirect("/login")
 
 
-load_dotenv("crypto.env")
+load_dotenv("cyber-odyssey.env")
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT")) if os.getenv("PORT") else 8080

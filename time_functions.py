@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 
-load_dotenv("crypto.env")
+load_dotenv("cyber-odyssey.env")
 
 
 def calculate_current_time_left() -> int:

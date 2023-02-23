@@ -26,7 +26,7 @@
                     url: "/hints",
                     type: "POST",
                     success: function (data) {
-                        $("#hint-div").text(data.hint);
+                        $("#hint-div").html(data.hint);
                     }
                 });
             });
