@@ -6,7 +6,7 @@ A web-app made by CYSCOM VIT, for their event Cyber Odyssey, a treasure hunt wit
 
 1. Question can be text or image.
     - Questions are stored in a `questions.json` file. Every question is of type `i` (image) or `t` (text).
-    - If image, the question text is the URL to the image.
+    - If image, the question text is the URL to the image. Store in [images](static/images/questions) folder.
     - Logs all attempts to a log file.
 2. "Location Keys"
     - All questions are tied to a location, and all locations have a key that must be entered to go to the next question. So a participant can see the question and the location they can get the key from. They can go to the location, solving the question on the way, and get the key from a CYSCOM member standing at the location.
@@ -21,7 +21,7 @@ A web-app made by CYSCOM VIT, for their event Cyber Odyssey, a treasure hunt wit
     - Can pass raw HTML to question and hint field, and it is rendered. This can be used for building complex questions like sudoku and crosswords.
 6. Spreadsheet writer
     - Writes all registrations to a spreadsheet using Google Cloud.
-    - Store credentials in a [`credentials-spreadsheet.json`](credentials-spreadsheet.json) file.
+    - Store credentials in a `credentials-spreadsheet.json` file.
 
 ## Config
 
@@ -76,6 +76,8 @@ EVENT_ENDED=FALSE
                     - pw_hash
                     - etc
     ```
-    - Store the keys in a [`credentials-cyber-odyssey.json`](credentials-cyber-odyssey.json) file in the root directory.
+    - Store the keys in a `credentials-cyber-odyssey.json` file in the root directory.
 3. Frontend - Plain HTML, CSS and JS.
     - present in[ /templates](/templates/) and [/static](/static/) folder
+4. Docker - For deployment
+    - Both [`Dockerfile`](Dockerfile) and [`docker-compose.yml`](docker-compose.yml) are included for ease of use.
