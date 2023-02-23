@@ -190,7 +190,7 @@ def play():
             update_team_details(session["regno"], "current_question", cq)
             ques = get_personal_current_question(regno=session["regno"])
             update_team_details(session["regno"], "hint_used", "False")
-            submitted_key=""
+            submitted_key = ""
         else:
             attempted_correct[1] = False
         if perhaps_completed(session["regno"], session["current_question"]):

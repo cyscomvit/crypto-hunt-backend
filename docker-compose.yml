@@ -1,6 +1,6 @@
-version: '2'
+version: "2"
 services:
-  odyssey:
-    build: ./crypto-hunt-backend
-    ports:
-      - 80:80
+    odyssey:
+        build: ./crypto-hunt-backend
+        ports:
+            - 80:80

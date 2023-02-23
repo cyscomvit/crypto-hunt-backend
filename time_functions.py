@@ -70,11 +70,11 @@ def calculate_points_for_answering(
         time_left = calculate_current_time_left()
     base_value = get_base_value(time_left)
     time_differentiator = get_time_differentiator(time_left)
-    if question_level in ("easy","start"):
+    if question_level in ("easy", "start"):
         multiplier = 50
-    elif question_level in ("medium","ctfe"):
+    elif question_level in ("medium", "ctfe"):
         multiplier = 75
-    elif question_level in ("hard","ctfm"):
+    elif question_level in ("hard", "ctfm"):
         multiplier = 120
     else:
         multiplier = 0

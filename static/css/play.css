@@ -209,7 +209,7 @@ section > table,
 
 .crossword input {
     border: none;
-    width: 0.6em;
+    width: 0.8em;
     padding: 6px;
 }
 
@@ -223,7 +223,7 @@ section > table,
     font-weight: 700;
 }
 
-.crossword input[type="number"] {
+.crossword input[type="text"] {
     background-color: #181818;
     color: #dad2d2;
 }
@@ -242,13 +242,15 @@ section > table,
     color: #000;
 }
 
-.crossword .highlight input[type="number"] {
+.crossword .highlight input[type="text"] {
     color: #000;
     background-color: #aec7d7;
 }
 
 .crossword p {
+    padding-top: 2rem;
     text-align: center;
+    line-height: 1.5;
     width: 22rem;
     color: #dad2d2;
 }

@@ -1,0 +1,24 @@
+Hint 1: for first part of the flag: 
+      I am a word that means to look closely,
+      To examine with care, to investigate fully
+
+Answer: Inspect Element (answer is in the sources -> html section it is commented)
+
+Hint 2: for second part of the flag:
+	Keep Looking 👀, the flags are somewhere down there
+
+Answer: At the bottom of the page ctrl+A to reveal it or just select the text from the bottom of the page
+
+Hint 3: for third part of the flag: (Let them know from the start to throughly explore this page)
+	I protect one tiny fighter,
+	Like plate armor, though somewhat lighter.
+	Even though you may be nimble,
+	You should use me. I'm a ______.
+	
+	Easter eggs ( usually found by clicking on different things on the page)
+
+Answer: Click on the club logo next to cyber odessey to reveal the third flags 
+  
+
+Flag: CCO{tH1nK_8eF0rE_Y0u_Cl1cK,_5T4y_fR0m_ThE_TR1Ck}
+

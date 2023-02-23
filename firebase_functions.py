@@ -129,7 +129,9 @@ def get_ordered_list_of_users_based_on_points() -> list[tuple[str, str]]:
         + " - "
         + user.upper(): all_users_ref[user]["current_question"]
         for user in all_users_ref
-        if user and "current_question" in all_users_ref[user] and "name" in all_users_ref[user]
+        if user
+        and "current_question" in all_users_ref[user]
+        and "name" in all_users_ref[user]
     }
     sorted_users_and_points = sorted(
         users_and_points.items(), key=lambda x: x[1], reverse=True

@@ -8,6 +8,8 @@ Pipfile.lock
 *.csv
 *.json
 
+credentials.json
+# Added tracking since event has finished
 !questions.json
 
 __pycache__/
